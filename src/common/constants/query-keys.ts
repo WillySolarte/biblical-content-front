@@ -10,5 +10,9 @@ export const queryKeys = {
        
         
     },
+    bible: {
+        all: ['bible'] as const,
+        version: ['bible', 'versions'] as const
+    }
     
 };

@@ -1,59 +1,39 @@
+//React
 import { useState } from 'react';
+
+//Libraries
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { 
-  Stepper, 
-  Button, 
-  Group, 
-  TextInput, 
-  Textarea, 
-  Select, 
-  Card, 
-  ActionIcon, 
-  Badge,
-} from '@mantine/core';
-import { 
-  BookOpen, 
-  Sparkles, 
-  Plus, 
-  Trash2, 
-  CheckCircle, 
-  ArrowRight, 
-  ArrowLeft,
-  Tv,
-  Smartphone,
-  Square
-} from 'lucide-react';
+import { Stepper, Button, Group, TextInput, Textarea, Select, Card, ActionIcon, Badge} from '@mantine/core';
+import { BookOpen, Sparkles, Plus, Trash2, CheckCircle, ArrowRight, ArrowLeft, Tv, Smartphone, Square} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  CreateProjectSchema, 
-  type TCreateProjectInput, 
-  type TPassageRangeInput 
-} from '../schemas/project.schema';
-import { 
-  BIBLE_VERSIONS, 
-  BIBLE_BOOKS, 
-  VISUAL_STYLES, 
-  NARRATIVE_TONES, 
-  SAMPLE_TEXTS_BY_BOOK 
-} from '../data/mock-bible';
+
+//My resources
+
+import { CreateProjectSchema, type TCreateProjectInput, type TPassageRangeInput} from '../schemas/project.schema';
+import { BIBLE_VERSIONS,  BIBLE_BOOKS,  VISUAL_STYLES, NARRATIVE_TONES,  SAMPLE_TEXTS_BY_BOOK } from '../data/mock-bible';
 import { useProjects } from '../hooks/useProjects';
 import { getProjectDetailUrl } from '@/common/constants/routes';
+import { useQuery } from '@tanstack/react-query';
+import { queryKeys } from '@/common/constants/query-keys';
+import { getApiBibleVersions } from '../services/project.service';
 
 export default function CreateProjectWizard() {
   const navigate = useNavigate();
   const { createProject } = useProjects();
   const [activeStep, setActiveStep] = useState(0);
 
+  const { data, isLoading, isError, error} = useQuery({
+    queryKey: queryKeys.bible.version,
+    queryFn: getApiBibleVersions,
+    retry: 1
+  });
+  if(isError){
+    console.error(error)
+  }
+  console.log(data)
   // Form setup with React Hook Form & Zod
-  const {
-    register,
-    handleSubmit,
-    control,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<TCreateProjectInput>({
+  const { register, handleSubmit, control, watch, setValue, formState: { errors }} = useForm<TCreateProjectInput>({
     resolver: zodResolver(CreateProjectSchema),
     defaultValues: {
       title: '',
@@ -174,27 +154,10 @@ export default function CreateProjectWizard() {
   return (
     <div className="max-w-4xl mx-auto py-4">
       <Card radius="xl" p="xl" withBorder className="bg-white border-border-warm shadow-sm">
-        <Stepper 
-          active={activeStep} 
-          onStepClick={setActiveStep} 
-          color="forest"
-          className="mb-8"
-        >
-          <Stepper.Step 
-            label="Identidad" 
-            description="Título, formato y estilo" 
-            icon={<Sparkles size={16} />}
-          />
-          <Stepper.Step 
-            label="Pasajes Bíblicos" 
-            description="Versión y escrituras" 
-            icon={<BookOpen size={16} />}
-          />
-          <Stepper.Step 
-            label="Revisión" 
-            description="Confirmación y creación" 
-            icon={<CheckCircle size={16} />}
-          />
+        <Stepper active={activeStep} onStepClick={setActiveStep} color="forest" className="mb-8">
+          <Stepper.Step label="Identidad" description="Título, formato y estilo" icon={<Sparkles size={16} />}/>
+          <Stepper.Step label="Pasajes Bíblicos" description="Versión y escrituras" icon={<BookOpen size={16} />}/>
+          
         </Stepper>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -211,20 +174,12 @@ export default function CreateProjectWizard() {
               </div>
 
               <div className="space-y-4">
-                <TextInput
-                  label="Nombre del proyecto"
-                  description="Un título evocador para tu video o producción audiovisual"
-                  placeholder="Ej: El Hijo Pródigo: La Gracia Incondicional"
-                  required
-                  size="md"
+                <TextInput label="Nombre del proyecto" description="Un título evocador para tu video o producción audiovisual" placeholder="Ej: El Hijo Pródigo: La Gracia Incondicional" required size="md"
                   {...register('title')}
                   error={errors.title?.message}
                 />
 
-                <Textarea
-                  label="Descripción u objetivo del proyecto (opcional)"
-                  placeholder="Describe brevemente la intención pedagógica o devocional de este contenido..."
-                  rows={3}
+                <Textarea label="Descripción u objetivo del proyecto (opcional)" placeholder="Describe brevemente la intención pedagógica o devocional de este contenido..." rows={3}
                   {...register('description')}
                   error={errors.description?.message}
                 />
@@ -282,36 +237,7 @@ export default function CreateProjectWizard() {
                   />
                 </div>
 
-                {/* Estilo visual & Tono narrativo */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Controller
-                    name="visualStyle"
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        label="Estilo visual de imágenes"
-                        data={VISUAL_STYLES}
-                        value={field.value}
-                        onChange={(val) => field.onChange(val || 'cinematic')}
-                        size="sm"
-                      />
-                    )}
-                  />
-
-                  <Controller
-                    name="tone"
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        label="Tono narrativo & musical"
-                        data={NARRATIVE_TONES}
-                        value={field.value}
-                        onChange={(val) => field.onChange(val || 'inspirational')}
-                        size="sm"
-                      />
-                    )}
-                  />
-                </div>
+                
               </div>
             </div>
           )}
@@ -350,7 +276,7 @@ export default function CreateProjectWizard() {
                         >
                           <div className="flex items-center justify-between">
                             <span className="font-bold text-sm text-forest">{ver.code}</span>
-                            <Badge size="xs" variant="light" color="forest">{ver.language}</Badge>
+                            <Badge size="xs" variant="light" color="forest">Español</Badge>
                           </div>
                           <p className="font-semibold text-xs text-charcoal mt-1">{ver.name}</p>
                           <p className="text-[11px] text-charcoal-muted mt-1 line-clamp-2 leading-tight">
@@ -482,88 +408,7 @@ export default function CreateProjectWizard() {
             </div>
           )}
 
-          {/* STEP 3: REVISIÓN Y CONFIRMACIÓN */}
-          {activeStep === 2 && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="font-editorial text-2xl font-semibold text-charcoal">
-                  Confirmación del nuevo proyecto
-                </h2>
-                <p className="text-sm text-charcoal-muted mt-1">
-                  Revisa los parámetros antes de inicializar el espacio de trabajo con IA.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-ivory-light p-4 rounded-xl border border-border-warm space-y-3">
-                  <span className="text-xs font-semibold text-muted uppercase tracking-wider">
-                    Detalles del proyecto
-                  </span>
-                  <div>
-                    <h3 className="font-editorial text-lg font-semibold text-charcoal">
-                      {selectedTitle || 'Sin título'}
-                    </h3>
-                    <p className="text-xs text-charcoal-muted mt-1">
-                      {watch('description') || 'Sin descripción adicional.'}
-                    </p>
-                  </div>
-
-                  <div className="pt-2 border-t border-border-warm space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-charcoal-muted">Formato:</span>
-                      <strong className="text-forest">{selectedAspectRatio}</strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-charcoal-muted">Estilo visual:</span>
-                      <strong className="text-forest">
-                        {VISUAL_STYLES.find(s => s.value === selectedStyle)?.label || selectedStyle}
-                      </strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-charcoal-muted">Tono:</span>
-                      <strong className="text-forest">
-                        {NARRATIVE_TONES.find(t => t.value === selectedTone)?.label || selectedTone}
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-ivory-light p-4 rounded-xl border border-border-warm space-y-3">
-                  <span className="text-xs font-semibold text-muted uppercase tracking-wider">
-                    Fundamento bíblico
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Badge color="forest" size="md">{selectedVersion}</Badge>
-                    <span className="text-xs text-charcoal-muted">
-                      {BIBLE_VERSIONS.find(v => v.code === selectedVersion)?.name}
-                    </span>
-                  </div>
-
-                  <div className="space-y-1.5 pt-2 border-t border-border-warm">
-                    <span className="text-xs font-medium text-charcoal block">
-                      Pasajes incluidos:
-                    </span>
-                    {selectedPassages.map((p, idx) => (
-                      <div key={p.id} className="text-xs text-forest font-serif bg-white p-2 rounded border border-border-warm">
-                        {idx + 1}. {p.book} {p.chapter}:{p.verseStart}{p.verseEnd > p.verseStart ? `-${p.verseEnd}` : ''}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* What happens next banner */}
-              <div className="p-4 rounded-xl bg-forest-subtle border border-forest/20 flex items-start gap-3">
-                <Sparkles className="w-5 h-5 text-forest shrink-0 mt-0.5" />
-                <div className="text-xs text-forest space-y-1">
-                  <strong className="font-semibold block text-sm">¿Qué sucederá a continuación?</strong>
-                  <p>
-                    Al crear el proyecto, entrarás al estudio creativo de Biblia Studio. Podrás activar el análisis teológico asistido por IA, revisar la propuesta de guión escénico y generar el storyboard audiovisual paso a paso.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
+          
 
           {/* Stepper Navigation Buttons */}
           <Group justify="space-between" mt="xl" className="pt-4 border-t border-border-warm">

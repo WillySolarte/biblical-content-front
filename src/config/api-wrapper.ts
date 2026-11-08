@@ -1,4 +1,4 @@
-import { isAxiosError } from "axios";
+import  { isAxiosError } from "axios";
 import type { ZodSchema, z } from "zod";
 import api from "../config/axios";
 import { StandarResponseSchema } from "@/common/schemas/general.schema";
@@ -44,6 +44,7 @@ export async function apiGet<TSchema extends ZodSchema>(url: string, schema: TSc
 export async function apiGetNestedData<T>(url: string, schema: ZodSchema<{ data: T }>): Promise<T> {
     try {
         const { data } = await api.get<unknown>(url);
+        
         const result = schema.safeParse(data);
 
         if (result.success) {
@@ -55,6 +56,7 @@ export async function apiGetNestedData<T>(url: string, schema: ZodSchema<{ data:
         return handleApiError(error);
     }
 }
+
 
 export async function apiPost<TSchema extends ZodSchema>(url: string, body: unknown, schema: TSchema): Promise<z.infer<TSchema>> {
     try {
