@@ -7,17 +7,25 @@
   --color-forest: #263B35;
   --color-forest-dark: #1A2925;
   --color-forest-light: #37524A;
+  --color-forest-mid: #2F4740;
+  --color-forest-deep: #1F312B;
   --color-forest-subtle: #EDF3F0;
   
   --color-gold: #D6B77A;
   --color-gold-dark: #B6975A;
   --color-gold-light: #F6EEDC;
+  --color-gold-strong: #B89655;
+  --color-gold-deep: #C59F58;
 
   --color-ivory: #F5F0E6;
   --color-ivory-light: #FAF8F5;
+  --color-cream: #FAF6EE;
   
   --color-charcoal: #252925;
   --color-charcoal-muted: #555E57;
+  --color-muted: #8C938E;
+  --color-slate-muted: #6B7280;
+  --color-sand: #D8D4CC;
   --color-border-warm: #E7E3DB;
 }
 

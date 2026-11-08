@@ -20,7 +20,7 @@ export default function PanelView() {
 
       {/* KPI Project Statistics */}
       <div className="space-y-3">
-        <h3 className="font-editorial text-xl font-bold text-[#252925]">
+        <h3 className="font-editorial text-xl font-bold text-charcoal">
           Resumen de Actividad
         </h3>
         <DashboardStats stats={stats} />

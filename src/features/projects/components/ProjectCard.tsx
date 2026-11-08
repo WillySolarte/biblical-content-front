@@ -39,11 +39,11 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
       padding="lg" 
       radius="lg" 
       withBorder 
-      className="bg-white hover:shadow-md transition-all duration-200 border-[#E7E3DB] flex flex-col justify-between group"
+      className="bg-white hover:shadow-md transition-all duration-200 border-border-warm flex flex-col justify-between group"
     >
       <div>
         {/* Cover Image or Editorial Header */}
-        <div className="relative -mx-5 -mt-5 mb-4 overflow-hidden rounded-t-lg bg-[#F5F0E6] h-40">
+        <div className="relative -mx-5 -mt-5 mb-4 overflow-hidden rounded-t-lg bg-ivory h-40">
           {project.coverImage ? (
             <Image
               src={project.coverImage}
@@ -53,9 +53,9 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#263B35] to-[#1A2925] text-white">
-              <BookOpen className="w-8 h-8 text-[#D6B77A] mb-2 opacity-80" />
-              <p className="font-editorial text-sm tracking-wide text-[#F5F0E6] text-center font-medium line-clamp-1">
+            <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-linear-to-br from-forest to-forest-dark text-white">
+              <BookOpen className="w-8 h-8 text-gold mb-2 opacity-80" />
+              <p className="font-editorial text-sm tracking-wide text-ivory text-center font-medium line-clamp-1">
                 {project.bibleVersion} • {project.passages[0]?.book || 'Escrituras'}
               </p>
             </div>
@@ -111,37 +111,37 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
 
         {/* Content */}
         <div className="space-y-3">
-          <div className="flex items-center gap-2 text-xs text-[#555E57] font-medium">
-            <span className="px-2 py-0.5 rounded bg-[#FAF8F5] border border-[#E7E3DB] text-[#263B35]">
+          <div className="flex items-center gap-2 text-xs text-charcoal-muted font-medium">
+            <span className="px-2 py-0.5 rounded bg-ivory-light border border-border-warm text-forest">
               {project.bibleVersion}
             </span>
-            <span className="flex items-center gap-1 font-serif text-[#37524A] font-medium truncate max-w-[200px]">
-              <BookOpen size={12} className="text-[#D6B77A] shrink-0" />
+            <span className="flex items-center gap-1 font-serif text-forest-light font-medium truncate max-w-[200px]">
+              <BookOpen size={12} className="text-gold shrink-0" />
               {passageSummary}
             </span>
           </div>
 
           <h3 
             onClick={() => navigate(getProjectDetailUrl(project.id))}
-            className="font-editorial text-lg font-semibold text-[#252925] line-clamp-1 hover:text-[#263B35] cursor-pointer transition-colors"
+            className="font-editorial text-lg font-semibold text-charcoal line-clamp-1 hover:text-forest cursor-pointer transition-colors"
           >
             {project.title}
           </h3>
 
-          <p className="text-xs text-[#555E57] line-clamp-2 leading-relaxed min-h-[32px]">
+          <p className="text-xs text-charcoal-muted line-clamp-2 leading-relaxed min-h-[32px]">
             {project.description || 'Sin descripción adicional para este proyecto de contenido bíblico.'}
           </p>
         </div>
       </div>
 
       {/* Footer Info & Progress */}
-      <div className="pt-4 mt-4 border-t border-[#E7E3DB]/80 space-y-3">
+      <div className="pt-4 mt-4 border-t border-border-warm/80 space-y-3">
         <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5 text-[#555E57]">
-            <Layers size={13} className="text-[#263B35]" />
+          <div className="flex items-center gap-1.5 text-charcoal-muted">
+            <Layers size={13} className="text-forest" />
             <ProductionStageBadge stage={project.stage} size="xs" />
           </div>
-          <span className="font-semibold text-[#263B35] text-xs">{project.progress}%</span>
+          <span className="font-semibold text-forest text-xs">{project.progress}%</span>
         </div>
 
         <Progress 
@@ -149,11 +149,11 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
           size="sm" 
           color="forest" 
           radius="xl" 
-          className="bg-[#EDF3F0]"
+          className="bg-forest-subtle"
         />
 
         <div className="flex items-center justify-between pt-1">
-          <span className="text-[11px] text-[#8C938E] flex items-center gap-1">
+          <span className="text-[11px] text-muted flex items-center gap-1">
             <Clock size={11} />
             {formattedDate}
           </span>
@@ -164,7 +164,7 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
             color="forest"
             rightSection={<ExternalLink size={12} />}
             onClick={() => navigate(getProjectDetailUrl(project.id))}
-            className="hover:bg-[#263B35] hover:text-white transition-colors"
+            className="hover:bg-forest hover:text-white transition-colors"
           >
             Abrir
           </Button>

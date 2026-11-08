@@ -24,18 +24,18 @@ export default function LandingNavbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#E7E3DB]">
+    <header className="sticky top-0 z-50 bg-ivory-light/90 backdrop-blur-md border-b border-border-warm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to={routes.public.home} className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-[#263B35] flex items-center justify-center text-[#D6B77A] shadow-xs group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 rounded-xl bg-forest flex items-center justify-center text-gold shadow-xs group-hover:scale-105 transition-transform">
             <BookOpen size={20} />
           </div>
           <div>
-            <span className="font-editorial text-xl font-bold text-[#252925] tracking-tight block">
+            <span className="font-editorial text-xl font-bold text-charcoal tracking-tight block">
               Biblia Studio
             </span>
-            <span className="text-[10px] text-[#8C938E] tracking-wider uppercase font-semibold block">
+            <span className="text-[10px] text-muted tracking-wider uppercase font-semibold block">
               IA Creativa Bíblica
             </span>
           </div>
@@ -47,7 +47,7 @@ export default function LandingNavbar() {
             <button
               key={link.label}
               onClick={() => scrollToSection(link.href)}
-              className="text-sm font-medium text-[#555E57] hover:text-[#263B35] transition-colors cursor-pointer"
+              className="text-sm font-medium text-charcoal-muted hover:text-forest transition-colors cursor-pointer"
             >
               {link.label}
             </button>
@@ -61,7 +61,7 @@ export default function LandingNavbar() {
             color="forest"
             size="sm"
             onClick={() => navigate(routes.auth.login)}
-            className="text-[#252925] hover:text-[#263B35]"
+            className="text-charcoal hover:text-forest"
           >
             Iniciar Sesión
           </Button>
@@ -71,7 +71,7 @@ export default function LandingNavbar() {
             size="sm"
             onClick={() => navigate(routes.auth.register)}
             rightSection={<ArrowRight size={14} />}
-            className="bg-[#263B35] hover:bg-[#1A2925] shadow-xs"
+            className="bg-forest hover:bg-forest-dark shadow-xs"
           >
             Comenzar Gratis
           </Button>
@@ -83,7 +83,7 @@ export default function LandingNavbar() {
             size="xs"
             color="forest"
             onClick={() => navigate(routes.auth.login)}
-            className="bg-[#263B35] text-xs"
+            className="bg-forest text-xs"
           >
             Entrar
           </Button>
@@ -104,10 +104,10 @@ export default function LandingNavbar() {
         size="xs"
         title={
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-[#263B35] flex items-center justify-center text-[#D6B77A]">
+            <div className="w-8 h-8 rounded-lg bg-forest flex items-center justify-center text-gold">
               <BookOpen size={16} />
             </div>
-            <span className="font-editorial font-bold text-base text-[#252925]">
+            <span className="font-editorial font-bold text-base text-charcoal">
               Biblia Studio
             </span>
           </div>
@@ -118,7 +118,7 @@ export default function LandingNavbar() {
             <button
               key={link.label}
               onClick={() => scrollToSection(link.href)}
-              className="text-left py-2 text-base font-medium text-[#555E57] hover:text-[#263B35] border-b border-[#E7E3DB]/60"
+              className="text-left py-2 text-base font-medium text-charcoal-muted hover:text-forest border-b border-border-warm/60"
             >
               {link.label}
             </button>
@@ -145,7 +145,7 @@ export default function LandingNavbar() {
                 setMobileOpened(false);
                 navigate(routes.auth.register);
               }}
-              className="bg-[#263B35]"
+              className="bg-forest"
             >
               Registrarse Gratis
             </Button>

@@ -46,10 +46,10 @@ export default function ProjectDetailView() {
         <div className="w-16 h-16 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto">
           <AlertCircle size={32} />
         </div>
-        <h2 className="font-editorial text-2xl font-bold text-[#252925]">
+        <h2 className="font-editorial text-2xl font-bold text-charcoal">
           Proyecto no encontrado
         </h2>
-        <p className="text-sm text-[#555E57]">
+        <p className="text-sm text-charcoal-muted">
           El proyecto solicitado no existe o ha sido eliminado.
         </p>
         <Button
@@ -95,10 +95,10 @@ export default function ProjectDetailView() {
         color="forest"
         className="bg-transparent"
       >
-        <Tabs.List className="bg-white p-1 rounded-xl border border-[#E7E3DB] flex-wrap sm:flex-nowrap mb-6 shadow-2xs">
+        <Tabs.List className="bg-white p-1 rounded-xl border border-border-warm flex-wrap sm:flex-nowrap mb-6 shadow-2xs">
           <Tabs.Tab 
             value="passages" 
-            leftSection={<BookOpen size={16} className="text-[#D6B77A]" />}
+            leftSection={<BookOpen size={16} className="text-gold" />}
             className="font-medium text-xs sm:text-sm py-2.5 px-3 sm:px-4"
           >
             1. Pasajes bíblicos
@@ -106,7 +106,7 @@ export default function ProjectDetailView() {
 
           <Tabs.Tab 
             value="storyboard" 
-            leftSection={<Layers size={16} className="text-[#263B35]" />}
+            leftSection={<Layers size={16} className="text-forest" />}
             className="font-medium text-xs sm:text-sm py-2.5 px-3 sm:px-4"
           >
             2. Contenido & Storyboard
@@ -114,7 +114,7 @@ export default function ProjectDetailView() {
 
           <Tabs.Tab 
             value="images" 
-            leftSection={<ImageIcon size={16} className="text-[#D6B77A]" />}
+            leftSection={<ImageIcon size={16} className="text-gold" />}
             className="font-medium text-xs sm:text-sm py-2.5 px-3 sm:px-4"
           >
             3. Imágenes IA ({currentProject.scenes.filter(s => s.status === 'completed').length}/{currentProject.scenes.length})
@@ -122,7 +122,7 @@ export default function ProjectDetailView() {
 
           <Tabs.Tab 
             value="audio" 
-            leftSection={<Mic size={16} className="text-[#263B35]" />}
+            leftSection={<Mic size={16} className="text-forest" />}
             className="font-medium text-xs sm:text-sm py-2.5 px-3 sm:px-4"
           >
             4. Audio & Locución
@@ -130,7 +130,7 @@ export default function ProjectDetailView() {
 
           <Tabs.Tab 
             value="video" 
-            leftSection={<Film size={16} className="text-[#D6B77A]" />}
+            leftSection={<Film size={16} className="text-gold" />}
             className="font-medium text-xs sm:text-sm py-2.5 px-3 sm:px-4"
           >
             5. Montaje de Video
@@ -138,7 +138,7 @@ export default function ProjectDetailView() {
 
           <Tabs.Tab 
             value="export" 
-            leftSection={<Download size={16} className="text-[#263B35]" />}
+            leftSection={<Download size={16} className="text-forest" />}
             className="font-medium text-xs sm:text-sm py-2.5 px-3 sm:px-4"
           >
             6. Exportación

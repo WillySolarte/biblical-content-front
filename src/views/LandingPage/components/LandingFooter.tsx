@@ -4,20 +4,20 @@ import { routes } from '@/common/constants/routes';
 
 export default function LandingFooter() {
   return (
-    <footer className="bg-[#1A2925] text-[#FAF8F5] pt-16 pb-12 border-t border-white/10">
+    <footer className="bg-forest-dark text-ivory-light pt-16 pb-12 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand & Vision */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#263B35] flex items-center justify-center text-[#D6B77A] border border-white/10">
+              <div className="w-10 h-10 rounded-xl bg-forest flex items-center justify-center text-gold border border-white/10">
                 <BookOpen size={20} />
               </div>
               <div>
                 <span className="font-editorial text-xl font-bold text-white tracking-tight block">
                   Biblia Studio
                 </span>
-                <span className="text-[10px] text-[#D6B77A] tracking-wider uppercase font-semibold block">
+                <span className="text-[10px] text-gold tracking-wider uppercase font-semibold block">
                   IA Creativa Bíblica
                 </span>
               </div>
@@ -28,7 +28,7 @@ export default function LandingFooter() {
             </p>
 
             {/* Scripture Verse Citation */}
-            <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-xs text-[#D6B77A] font-serif italic max-w-sm">
+            <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-xs text-gold font-serif italic max-w-sm">
               "Lámpara es a mis pies tu palabra, y lumbrera a mi camino."
               <span className="block text-[11px] font-sans font-normal text-white/60 not-italic mt-1">
                 — Salmos 119:105
@@ -38,7 +38,7 @@ export default function LandingFooter() {
 
           {/* Product Links */}
           <div className="space-y-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#D6B77A] block">
+            <span className="text-xs font-semibold uppercase tracking-wider text-gold block">
               Plataforma
             </span>
             <ul className="space-y-2 text-xs text-white/75">
@@ -53,7 +53,7 @@ export default function LandingFooter() {
 
           {/* Legal and Support */}
           <div className="space-y-3">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#D6B77A] block">
+            <span className="text-xs font-semibold uppercase tracking-wider text-gold block">
               Legal & Ética
             </span>
             <ul className="space-y-2 text-xs text-white/75">

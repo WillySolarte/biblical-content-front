@@ -16,18 +16,18 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white rounded-xl border border-[#E7E3DB] overflow-hidden shadow-sm">
+    <div className="bg-white rounded-xl border border-border-warm overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
         <Table verticalSpacing="md" horizontalSpacing="lg" highlightOnHover>
-          <Table.Thead className="bg-[#FAF8F5] border-b border-[#E7E3DB]">
+          <Table.Thead className="bg-ivory-light border-b border-border-warm">
             <Table.Tr>
-              <Table.Th className="text-xs uppercase tracking-wider text-[#555E57] font-semibold">Proyecto</Table.Th>
-              <Table.Th className="text-xs uppercase tracking-wider text-[#555E57] font-semibold">Versión & Pasaje</Table.Th>
-              <Table.Th className="text-xs uppercase tracking-wider text-[#555E57] font-semibold">Estado</Table.Th>
-              <Table.Th className="text-xs uppercase tracking-wider text-[#555E57] font-semibold">Etapa de Producción</Table.Th>
-              <Table.Th className="text-xs uppercase tracking-wider text-[#555E57] font-semibold">Progreso</Table.Th>
-              <Table.Th className="text-xs uppercase tracking-wider text-[#555E57] font-semibold">Actualizado</Table.Th>
-              <Table.Th className="text-xs uppercase tracking-wider text-[#555E57] font-semibold text-right">Acciones</Table.Th>
+              <Table.Th className="text-xs uppercase tracking-wider text-charcoal-muted font-semibold">Proyecto</Table.Th>
+              <Table.Th className="text-xs uppercase tracking-wider text-charcoal-muted font-semibold">Versión & Pasaje</Table.Th>
+              <Table.Th className="text-xs uppercase tracking-wider text-charcoal-muted font-semibold">Estado</Table.Th>
+              <Table.Th className="text-xs uppercase tracking-wider text-charcoal-muted font-semibold">Etapa de Producción</Table.Th>
+              <Table.Th className="text-xs uppercase tracking-wider text-charcoal-muted font-semibold">Progreso</Table.Th>
+              <Table.Th className="text-xs uppercase tracking-wider text-charcoal-muted font-semibold">Actualizado</Table.Th>
+              <Table.Th className="text-xs uppercase tracking-wider text-charcoal-muted font-semibold text-right">Acciones</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
@@ -43,16 +43,16 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
               });
 
               return (
-                <Table.Tr key={project.id} className="hover:bg-[#FAF8F5]/80 transition-colors">
+                <Table.Tr key={project.id} className="hover:bg-ivory-light/80 transition-colors">
                   <Table.Td>
                     <div className="max-w-[260px]">
                       <span 
                         onClick={() => navigate(getProjectDetailUrl(project.id))}
-                        className="font-editorial text-sm font-semibold text-[#252925] hover:text-[#263B35] cursor-pointer block truncate"
+                        className="font-editorial text-sm font-semibold text-charcoal hover:text-forest cursor-pointer block truncate"
                       >
                         {project.title}
                       </span>
-                      <span className="text-xs text-[#6B7280] line-clamp-1">
+                      <span className="text-xs text-slate-muted line-clamp-1">
                         {project.description || 'Sin descripción'}
                       </span>
                     </div>
@@ -60,11 +60,11 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
 
                   <Table.Td>
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-xs font-semibold text-[#263B35]">
+                      <span className="text-xs font-semibold text-forest">
                         {project.bibleVersion}
                       </span>
-                      <span className="text-xs text-[#555E57] font-serif flex items-center gap-1">
-                        <BookOpen size={11} className="text-[#D6B77A]" />
+                      <span className="text-xs text-charcoal-muted font-serif flex items-center gap-1">
+                        <BookOpen size={11} className="text-gold" />
                         {passageSummary}
                       </span>
                     </div>
@@ -80,7 +80,7 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
 
                   <Table.Td>
                     <div className="w-28 space-y-1">
-                      <div className="flex justify-between text-[11px] text-[#555E57]">
+                      <div className="flex justify-between text-[11px] text-charcoal-muted">
                         <span>{project.progress}%</span>
                       </div>
                       <Progress value={project.progress} size="xs" color="forest" radius="xl" />
@@ -88,7 +88,7 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
                   </Table.Td>
 
                   <Table.Td>
-                    <span className="text-xs text-[#6B7280] flex items-center gap-1">
+                    <span className="text-xs text-slate-muted flex items-center gap-1">
                       <Clock size={11} />
                       {formattedDate}
                     </span>

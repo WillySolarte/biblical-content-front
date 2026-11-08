@@ -16,7 +16,7 @@ export default function CreateProjectView() {
           size="sm"
           leftSection={<ArrowLeft size={16} />}
           onClick={() => navigate(routes.app.projects)}
-          className="text-[#555E57] hover:text-[#263B35]"
+          className="text-charcoal-muted hover:text-forest"
         >
           Volver a Mis Proyectos
         </Button>

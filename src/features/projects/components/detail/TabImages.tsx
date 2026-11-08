@@ -71,14 +71,14 @@ export default function TabImages({ project, onUpdateScenes, onNextStage }: TabI
   return (
     <div className="space-y-6">
       {/* Top Banner & Batch Generation */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-[#E7E3DB] shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-border-warm shadow-sm">
         <div>
-          <h3 className="font-editorial text-lg font-semibold text-[#252925] flex items-center gap-2">
-            <ImageIcon size={18} className="text-[#263B35]" />
+          <h3 className="font-editorial text-lg font-semibold text-charcoal flex items-center gap-2">
+            <ImageIcon size={18} className="text-forest" />
             Galería de Imágenes Escénicas
           </h3>
-          <p className="text-xs text-[#555E57]">
-            Estilo activo: <strong className="text-[#263B35]">{project.visualStyle}</strong> • Proporción: <strong>{project.videoConfig.aspectRatio}</strong>
+          <p className="text-xs text-charcoal-muted">
+            Estilo activo: <strong className="text-forest">{project.visualStyle}</strong> • Proporción: <strong>{project.videoConfig.aspectRatio}</strong>
           </p>
         </div>
 
@@ -100,7 +100,7 @@ export default function TabImages({ project, onUpdateScenes, onNextStage }: TabI
               color="forest"
               rightSection={<ArrowRight size={14} />}
               onClick={onNextStage}
-              className="bg-[#263B35] hover:bg-[#1A2925]"
+              className="bg-forest hover:bg-forest-dark"
             >
               Continuar al Audio
             </Button>
@@ -120,18 +120,18 @@ export default function TabImages({ project, onUpdateScenes, onNextStage }: TabI
               radius="xl" 
               p="md" 
               withBorder 
-              className="bg-white border-[#E7E3DB] flex flex-col justify-between shadow-sm hover:border-[#D6B77A] transition-all"
+              className="bg-white border-border-warm flex flex-col justify-between shadow-sm hover:border-gold transition-all"
             >
               <div>
                 {/* Image Canvas */}
-                <div className="relative aspect-video rounded-lg overflow-hidden bg-[#F5F0E6] mb-3 border border-[#E7E3DB]">
+                <div className="relative aspect-video rounded-lg overflow-hidden bg-ivory mb-3 border border-border-warm">
                   {isGeneratingThis ? (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-[#FAF8F5]">
-                      <RefreshCw size={24} className="text-[#263B35] animate-spin mb-2" />
-                      <span className="text-xs font-semibold text-[#263B35]">
+                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-ivory-light">
+                      <RefreshCw size={24} className="text-forest animate-spin mb-2" />
+                      <span className="text-xs font-semibold text-forest">
                         Renderizando imagen con IA...
                       </span>
-                      <span className="text-[10px] text-[#8C938E] mt-1">
+                      <span className="text-[10px] text-muted mt-1">
                         Aplicando iluminación bíblica y estilo {project.visualStyle.split(' ')[0]}
                       </span>
                     </div>
@@ -150,12 +150,12 @@ export default function TabImages({ project, onUpdateScenes, onNextStage }: TabI
                       </div>
                     </>
                   ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-[#8C938E]">
-                      <ImageIcon size={32} className="mb-2 opacity-40 text-[#263B35]" />
-                      <span className="text-xs font-medium text-[#555E57]">
+                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-muted">
+                      <ImageIcon size={32} className="mb-2 opacity-40 text-forest" />
+                      <span className="text-xs font-medium text-charcoal-muted">
                         Sin imagen generada aún
                       </span>
-                      <span className="text-[10px] text-[#8C938E] mt-0.5">
+                      <span className="text-[10px] text-muted mt-0.5">
                         Haz clic en generar para crear la imagen
                       </span>
                     </div>
@@ -165,7 +165,7 @@ export default function TabImages({ project, onUpdateScenes, onNextStage }: TabI
                 {/* Scene Meta */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#263B35] uppercase tracking-wider">
+                    <span className="text-xs font-bold text-forest uppercase tracking-wider">
                       Escena #{scene.sceneNumber}
                     </span>
                     <Badge size="xs" variant="outline" color="dark">
@@ -173,20 +173,20 @@ export default function TabImages({ project, onUpdateScenes, onNextStage }: TabI
                     </Badge>
                   </div>
 
-                  <h4 className="font-editorial text-base font-semibold text-[#252925] line-clamp-1">
+                  <h4 className="font-editorial text-base font-semibold text-charcoal line-clamp-1">
                     {scene.title}
                   </h4>
 
-                  <p className="text-xs text-[#555E57] italic line-clamp-2 leading-relaxed bg-[#FAF8F5] p-2 rounded border border-[#E7E3DB]">
+                  <p className="text-xs text-charcoal-muted italic line-clamp-2 leading-relaxed bg-ivory-light p-2 rounded border border-border-warm">
                     "{scene.voiceover}"
                   </p>
                 </div>
               </div>
 
               {/* Variations & Regeneration */}
-              <div className="pt-3 mt-3 border-t border-[#E7E3DB] space-y-2">
+              <div className="pt-3 mt-3 border-t border-border-warm space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[11px] text-[#8C938E]">Variaciones:</span>
+                  <span className="text-[11px] text-muted">Variaciones:</span>
                   <div className="flex gap-1">
                     {[1, 2, 3].map((v) => (
                       <button
@@ -194,8 +194,8 @@ export default function TabImages({ project, onUpdateScenes, onNextStage }: TabI
                         onClick={() => setSelectedVariation(prev => ({ ...prev, [scene.id]: v }))}
                         className={`w-5 h-5 text-[10px] rounded font-semibold transition-colors cursor-pointer ${
                           currentVar === v
-                            ? 'bg-[#263B35] text-white'
-                            : 'bg-[#FAF8F5] text-[#555E57] hover:bg-[#E7E3DB]'
+                            ? 'bg-forest text-white'
+                            : 'bg-ivory-light text-charcoal-muted hover:bg-border-warm'
                         }`}
                       >
                         v{v}

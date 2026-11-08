@@ -48,16 +48,16 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section id="funcionalidades" className="py-24 bg-[#FAF8F5]">
+    <section id="funcionalidades" className="py-24 bg-ivory-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="text-xs uppercase tracking-widest font-bold text-[#B89655]">
+          <span className="text-xs uppercase tracking-widest font-bold text-gold-strong">
             Capacidades del Sistema
           </span>
-          <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-[#252925] tracking-tight">
+          <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-charcoal tracking-tight">
             Herramientas diseñadas para el narrador bíblico
           </h2>
-          <p className="text-sm sm:text-base text-[#555E57] leading-relaxed">
+          <p className="text-sm sm:text-base text-charcoal-muted leading-relaxed">
             Cada módulo de Biblia Studio resuelve un desafío técnico en la creación de video, permitiéndote concentrarte en el mensaje que deseas comunicar.
           </p>
         </div>
@@ -68,28 +68,28 @@ export default function FeaturesSection() {
             return (
               <div
                 key={idx}
-                className="bg-white p-8 rounded-2xl border border-[#E7E3DB] hover:border-[#D6B77A] hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+                className="bg-white p-8 rounded-2xl border border-border-warm hover:border-gold hover:shadow-md transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-xl bg-[#EDF3F0] text-[#263B35] flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-forest-subtle text-forest flex items-center justify-center">
                       <Icon size={22} />
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-[#FAF8F5] border border-[#E7E3DB] text-[11px] font-semibold text-[#8C938E] uppercase tracking-wide">
+                    <span className="px-2.5 py-1 rounded-full bg-ivory-light border border-border-warm text-[11px] font-semibold text-muted uppercase tracking-wide">
                       {feature.tag}
                     </span>
                   </div>
 
-                  <h3 className="font-editorial text-xl font-bold text-[#252925] leading-snug">
+                  <h3 className="font-editorial text-xl font-bold text-charcoal leading-snug">
                     {feature.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-[#555E57] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-charcoal-muted leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-[#E7E3DB]/80 flex items-center text-xs font-semibold text-[#263B35]">
+                <div className="pt-6 mt-6 border-t border-border-warm/80 flex items-center text-xs font-semibold text-forest">
                   <span>Optimizado para producción bíblica</span>
                 </div>
               </div>

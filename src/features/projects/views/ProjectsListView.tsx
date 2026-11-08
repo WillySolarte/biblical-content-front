@@ -36,10 +36,10 @@ export default function ProjectsListView() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-editorial text-2xl sm:text-3xl font-bold text-[#252925] tracking-tight">
+          <h1 className="font-editorial text-2xl sm:text-3xl font-bold text-charcoal tracking-tight">
             Mis Proyectos
           </h1>
-          <p className="text-sm text-[#555E57] mt-1">
+          <p className="text-sm text-charcoal-muted mt-1">
             Administra, edita y supervisa el flujo de producción audiovisual de tus contenidos bíblicos.
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function ProjectsListView() {
           size="md"
           leftSection={<Plus size={16} />}
           onClick={() => navigate(routes.app.createProject)}
-          className="bg-[#263B35] hover:bg-[#1A2925] shadow-sm self-start sm:self-auto"
+          className="bg-forest hover:bg-forest-dark shadow-sm self-start sm:self-auto"
         >
           Crear proyecto
         </Button>
@@ -75,7 +75,7 @@ export default function ProjectsListView() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="bg-white p-5 rounded-2xl border border-[#E7E3DB] space-y-4">
+            <div key={i} className="bg-white p-5 rounded-2xl border border-border-warm space-y-4">
               <Skeleton height={140} radius="lg" />
               <Skeleton height={20} width="60%" />
               <Skeleton height={14} />
@@ -85,16 +85,16 @@ export default function ProjectsListView() {
           ))}
         </div>
       ) : filteredProjects.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-[#E7E3DB] p-12 text-center max-w-md mx-auto space-y-4 shadow-sm">
-          <div className="w-14 h-14 rounded-full bg-[#FAF8F5] text-[#263B35] flex items-center justify-center mx-auto border border-[#E7E3DB]">
-            <Layers size={26} className="text-[#D6B77A]" />
+        <div className="bg-white rounded-2xl border border-border-warm p-12 text-center max-w-md mx-auto space-y-4 shadow-sm">
+          <div className="w-14 h-14 rounded-full bg-ivory-light text-forest flex items-center justify-center mx-auto border border-border-warm">
+            <Layers size={26} className="text-gold" />
           </div>
 
-          <h3 className="font-editorial text-xl font-bold text-[#252925]">
+          <h3 className="font-editorial text-xl font-bold text-charcoal">
             No se encontraron proyectos
           </h3>
 
-          <p className="text-xs text-[#555E57] leading-relaxed">
+          <p className="text-xs text-charcoal-muted leading-relaxed">
             No hay proyectos que coincidan con los criterios de búsqueda o filtros seleccionados.
           </p>
 

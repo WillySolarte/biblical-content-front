@@ -26,9 +26,9 @@ export default function DeleteProjectModal({ opened, onClose, project, onConfirm
       size="md"
     >
       <div className="space-y-4">
-        <p className="text-sm text-[#555E57] leading-relaxed">
+        <p className="text-sm text-charcoal-muted leading-relaxed">
           ¿Estás seguro de que deseas eliminar permanentemente el proyecto{' '}
-          <strong className="text-[#252925]">"{project.title}"</strong>?
+          <strong className="text-charcoal">"{project.title}"</strong>?
         </p>
 
         <div className="p-3 bg-red-50 rounded-lg border border-red-200 text-xs text-red-800">

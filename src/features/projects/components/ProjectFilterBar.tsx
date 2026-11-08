@@ -68,13 +68,13 @@ export default function ProjectFilterBar({
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl border border-[#E7E3DB] shadow-sm space-y-3">
+    <div className="bg-white p-4 rounded-xl border border-border-warm shadow-sm space-y-3">
       <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
         {/* Search */}
         <div className="flex-1 min-w-[240px]">
           <TextInput
             placeholder="Buscar por nombre, libro o pasaje..."
-            leftSection={<Search size={16} className="text-[#8C938E]" />}
+            leftSection={<Search size={16} className="text-muted" />}
             value={search}
             onChange={(e) => onSearchChange(e.currentTarget.value)}
             rightSection={
@@ -117,7 +117,7 @@ export default function ProjectFilterBar({
           />
 
           {/* View Toggle */}
-          <div className="border-l border-[#E7E3DB] pl-2 flex items-center gap-1">
+          <div className="border-l border-border-warm pl-2 flex items-center gap-1">
             <Tooltip label="Vista en tarjetas">
               <ActionIcon
                 variant={viewMode === 'grid' ? 'filled' : 'subtle'}
@@ -144,15 +144,15 @@ export default function ProjectFilterBar({
       </div>
 
       {/* Filter summary */}
-      <div className="flex items-center justify-between text-xs text-[#555E57] pt-1">
+      <div className="flex items-center justify-between text-xs text-charcoal-muted pt-1">
         <span>
-          Mostrando <strong className="text-[#263B35]">{filteredCount}</strong> de {totalCount} proyectos
+          Mostrando <strong className="text-forest">{filteredCount}</strong> de {totalCount} proyectos
         </span>
 
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="text-[#263B35] hover:text-[#1A2925] font-medium flex items-center gap-1 hover:underline cursor-pointer"
+            className="text-forest hover:text-forest-dark font-medium flex items-center gap-1 hover:underline cursor-pointer"
           >
             <X size={12} />
             Limpiar filtros

@@ -9,19 +9,19 @@ export default function CtaSection() {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-gradient-to-br from-[#263B35] via-[#2F4740] to-[#1A2925] p-8 sm:p-14 text-center text-white relative overflow-hidden shadow-xl">
+        <div className="rounded-3xl bg-linear-to-br from-forest via-forest-mid to-forest-dark p-8 sm:p-14 text-center text-white relative overflow-hidden shadow-xl">
           {/* Background Ambient Motif */}
           <div className="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
-            <BookOpen size={300} className="text-[#D6B77A]" />
+            <BookOpen size={300} className="text-gold" />
           </div>
 
           <div className="max-w-2xl mx-auto space-y-6 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-[#D6B77A] font-semibold">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-gold font-semibold">
               <Sparkles size={14} />
               <span>Estudio Audiovisual Gratuito</span>
             </div>
 
-            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F5F0E6] tracking-tight leading-tight">
+            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-bold text-ivory tracking-tight leading-tight">
               Comienza a crear tu primer video bíblico hoy mismo
             </h2>
 
@@ -35,7 +35,7 @@ export default function CtaSection() {
                 color="gold"
                 rightSection={<ArrowRight size={18} />}
                 onClick={() => navigate(routes.auth.register)}
-                className="bg-[#D6B77A] text-[#1A2925] hover:bg-[#C59F58] font-bold shadow-md px-8 h-13 text-base"
+                className="bg-gold text-forest-dark hover:bg-gold-deep font-bold shadow-md px-8 h-13 text-base"
               >
                 Crear cuenta gratis
               </Button>

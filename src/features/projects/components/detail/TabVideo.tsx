@@ -47,7 +47,7 @@ export default function TabVideo({ project, onUpdateVideo, onNextStage }: TabVid
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Monitor Display */}
         <div className="lg:col-span-2 space-y-3">
-          <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-lg border border-[#252925] flex items-center justify-center group">
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-lg border border-charcoal flex items-center justify-center group">
             <Image
               src={currentScene.imageUrl || 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&auto=format&fit=crop&q=80'}
               alt={currentScene.title}
@@ -69,7 +69,7 @@ export default function TabVideo({ project, onUpdateVideo, onNextStage }: TabVid
               className="absolute inset-0 flex items-center justify-center bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
               aria-label={isPlaying ? 'Pausar' : 'Reproducir'}
             >
-              <div className="w-16 h-16 rounded-full bg-[#263B35]/90 text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+              <div className="w-16 h-16 rounded-full bg-forest/90 text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
                 {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" />}
               </div>
             </button>
@@ -86,23 +86,23 @@ export default function TabVideo({ project, onUpdateVideo, onNextStage }: TabVid
           </div>
 
           {/* Timeline & Playback Bar */}
-          <div className="bg-white p-4 rounded-xl border border-[#E7E3DB] shadow-sm space-y-3">
+          <div className="bg-white p-4 rounded-xl border border-border-warm shadow-sm space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
                   onClick={handleTogglePlay}
-                  className="w-9 h-9 rounded-full bg-[#263B35] text-white flex items-center justify-center hover:bg-[#1A2925] cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center hover:bg-forest-dark cursor-pointer"
                 >
                   {isPlaying ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
                 </button>
                 <button
                   onClick={() => setActiveSceneIndex(0)}
-                  className="text-[#555E57] hover:text-[#263B35] cursor-pointer"
+                  className="text-charcoal-muted hover:text-forest cursor-pointer"
                   title="Reiniciar"
                 >
                   <RotateCcw size={16} />
                 </button>
-                <span className="text-xs font-mono text-[#252925] font-semibold">
+                <span className="text-xs font-mono text-charcoal font-semibold">
                   00:08 / {project.scenes.reduce((acc, s) => acc + s.durationSeconds, 0)}s
                 </span>
               </div>
@@ -122,8 +122,8 @@ export default function TabVideo({ project, onUpdateVideo, onNextStage }: TabVid
                   onClick={() => setActiveSceneIndex(idx)}
                   className={`relative shrink-0 w-24 h-14 rounded-lg overflow-hidden border-2 cursor-pointer transition-all ${
                     activeSceneIndex === idx
-                      ? 'border-[#263B35] ring-2 ring-[#263B35]/20 scale-102'
-                      : 'border-[#E7E3DB] opacity-70 hover:opacity-100'
+                      ? 'border-forest ring-2 ring-forest/20 scale-102'
+                      : 'border-border-warm opacity-70 hover:opacity-100'
                   }`}
                 >
                   <Image
@@ -142,9 +142,9 @@ export default function TabVideo({ project, onUpdateVideo, onNextStage }: TabVid
 
         {/* Right Settings Panel */}
         <div className="space-y-4">
-          <Card radius="xl" p="lg" withBorder className="bg-white border-[#E7E3DB] space-y-4 shadow-sm">
-            <h4 className="font-editorial text-base font-semibold text-[#252925] flex items-center gap-2 pb-2 border-b border-[#E7E3DB]">
-              <Film size={16} className="text-[#263B35]" />
+          <Card radius="xl" p="lg" withBorder className="bg-white border-border-warm space-y-4 shadow-sm">
+            <h4 className="font-editorial text-base font-semibold text-charcoal flex items-center gap-2 pb-2 border-b border-border-warm">
+              <Film size={16} className="text-forest" />
               Ajustes de Renderizado y Montaje
             </h4>
 
@@ -172,7 +172,7 @@ export default function TabVideo({ project, onUpdateVideo, onNextStage }: TabVid
               size="sm"
             />
 
-            <div className="pt-2 border-t border-[#E7E3DB] space-y-3">
+            <div className="pt-2 border-t border-border-warm space-y-3">
               <Switch
                 label="Incrustar subtítulos automáticos"
                 description="Subtítulos sincronizados con la locución bíblica"
@@ -212,7 +212,7 @@ export default function TabVideo({ project, onUpdateVideo, onNextStage }: TabVid
               color="forest"
               rightSection={<ArrowRight size={16} />}
               onClick={onNextStage}
-              className="bg-[#263B35] hover:bg-[#1A2925]"
+              className="bg-forest hover:bg-forest-dark"
             >
               Ir a Exportar Video
             </Button>

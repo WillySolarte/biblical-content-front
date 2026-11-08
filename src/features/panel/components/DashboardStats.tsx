@@ -18,8 +18,8 @@ export default function DashboardStats({ stats }: DashboardStatsProps) {
       value: stats.active,
       description: 'En fases de guión, imagen y audio',
       icon: PlayCircle,
-      accentColor: 'text-[#263B35]',
-      bgAccent: 'bg-[#EDF3F0]',
+      accentColor: 'text-forest',
+      bgAccent: 'bg-forest-subtle',
     },
     {
       label: 'En Proceso / Borrador',
@@ -42,8 +42,8 @@ export default function DashboardStats({ stats }: DashboardStatsProps) {
       value: stats.total,
       description: 'Historias bíblicas creadas en tu estudio',
       icon: Layers,
-      accentColor: 'text-[#B89655]',
-      bgAccent: 'bg-[#FAF6EE]',
+      accentColor: 'text-gold-strong',
+      bgAccent: 'bg-cream',
     },
   ];
 
@@ -57,10 +57,10 @@ export default function DashboardStats({ stats }: DashboardStatsProps) {
             radius="xl" 
             p="lg" 
             withBorder 
-            className="bg-white border-[#E7E3DB] shadow-2xs hover:shadow-xs transition-shadow flex flex-col justify-between"
+            className="bg-white border-border-warm shadow-2xs hover:shadow-xs transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs uppercase tracking-wider font-semibold text-[#555E57]">
+              <span className="text-xs uppercase tracking-wider font-semibold text-charcoal-muted">
                 {item.label}
               </span>
               <div className={`w-9 h-9 rounded-xl ${item.bgAccent} ${item.accentColor} flex items-center justify-center`}>
@@ -69,10 +69,10 @@ export default function DashboardStats({ stats }: DashboardStatsProps) {
             </div>
 
             <div className="mt-4">
-              <span className="font-editorial text-3xl font-bold text-[#252925]">
+              <span className="font-editorial text-3xl font-bold text-charcoal">
                 {item.value}
               </span>
-              <p className="text-[11px] text-[#8C938E] mt-1 line-clamp-1">
+              <p className="text-[11px] text-muted mt-1 line-clamp-1">
                 {item.description}
               </p>
             </div>

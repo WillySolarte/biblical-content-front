@@ -45,12 +45,12 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
   return (
     <div className="space-y-6">
       {/* Audio Player Preview Bar */}
-      <Card radius="xl" p="xl" withBorder className="bg-[#FAF8F5] border-[#E7E3DB] shadow-sm">
+      <Card radius="xl" p="xl" withBorder className="bg-ivory-light border-border-warm shadow-sm">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <button
               onClick={handleTogglePlay}
-              className="w-14 h-14 rounded-full bg-[#263B35] text-white flex items-center justify-center hover:bg-[#1A2925] transition-all shadow-md cursor-pointer shrink-0"
+              className="w-14 h-14 rounded-full bg-forest text-white flex items-center justify-center hover:bg-forest-dark transition-all shadow-md cursor-pointer shrink-0"
               aria-label={isPlaying ? 'Pausar audio' : 'Reproducir audio'}
             >
               {isPlaying ? <Pause size={22} /> : <Play size={22} className="ml-1" />}
@@ -58,14 +58,14 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
 
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-editorial text-lg font-bold text-[#252925]">
+                <span className="font-editorial text-lg font-bold text-charcoal">
                   Vista previa de la mezcla sonora
                 </span>
                 <Badge color={isPlaying ? 'teal' : 'gray'} variant="light" size="xs">
                   {isPlaying ? 'Reproduciendo...' : 'En pausa'}
                 </Badge>
               </div>
-              <p className="text-xs text-[#555E57] mt-0.5">
+              <p className="text-xs text-charcoal-muted mt-0.5">
                 Voz: <strong>{config.voiceName}</strong> • Música: <strong>{config.musicTrack}</strong>
               </p>
             </div>
@@ -86,7 +86,7 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
                 color="forest"
                 rightSection={<ArrowRight size={14} />}
                 onClick={onNextStage}
-                className="bg-[#263B35] hover:bg-[#1A2925]"
+                className="bg-forest hover:bg-forest-dark"
               >
                 Continuar al Montaje de Video
               </Button>
@@ -95,16 +95,16 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
         </div>
 
         {/* Audio Waveform Simulation */}
-        <div className="mt-6 pt-5 border-t border-[#E7E3DB] space-y-2">
-          <div className="flex items-center justify-between text-xs text-[#8C938E]">
+        <div className="mt-6 pt-5 border-t border-border-warm space-y-2">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>00:14</span>
-            <span className="font-mono text-[#263B35]">
+            <span className="font-mono text-forest">
               Duración total: {project.scenes.reduce((acc, s) => acc + s.durationSeconds, 0)}s
             </span>
           </div>
 
           {/* Visual Waveform bars */}
-          <div className="h-12 bg-white rounded-lg border border-[#E7E3DB] flex items-center px-4 gap-1 overflow-hidden">
+          <div className="h-12 bg-white rounded-lg border border-border-warm flex items-center px-4 gap-1 overflow-hidden">
             {Array.from({ length: 48 }).map((_, i) => {
               const height = [40, 60, 85, 30, 95, 70, 50, 30, 65, 80, 45, 90, 75, 40, 60, 85][i % 16];
               const isPast = i < 14;
@@ -114,8 +114,8 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
                   style={{ height: `${height}%` }}
                   className={`w-full rounded-full transition-all duration-300 ${
                     isPast
-                      ? 'bg-[#263B35]'
-                      : 'bg-[#E7E3DB]'
+                      ? 'bg-forest'
+                      : 'bg-border-warm'
                   }`}
                 />
               );
@@ -127,10 +127,10 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
       {/* Audio Controls Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left: AI Voice Settings */}
-        <Card radius="xl" p="xl" withBorder className="bg-white border-[#E7E3DB] space-y-5 shadow-sm">
-          <div className="flex items-center gap-2 pb-3 border-b border-[#E7E3DB]">
-            <Mic size={18} className="text-[#263B35]" />
-            <h4 className="font-editorial text-base font-semibold text-[#252925]">
+        <Card radius="xl" p="xl" withBorder className="bg-white border-border-warm space-y-5 shadow-sm">
+          <div className="flex items-center gap-2 pb-3 border-b border-border-warm">
+            <Mic size={18} className="text-forest" />
+            <h4 className="font-editorial text-base font-semibold text-charcoal">
               Narrador de Inteligencia Artificial
             </h4>
           </div>
@@ -155,9 +155,9 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
             />
 
             <div>
-              <div className="flex justify-between text-xs font-medium text-[#252925] mb-2">
+              <div className="flex justify-between text-xs font-medium text-charcoal mb-2">
                 <span>Velocidad de locución</span>
-                <span className="text-[#263B35] font-bold">{config.speechRate}x</span>
+                <span className="text-forest font-bold">{config.speechRate}x</span>
               </div>
               <Slider
                 value={config.speechRate}
@@ -177,10 +177,10 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
         </Card>
 
         {/* Right: Music & Sound FX */}
-        <Card radius="xl" p="xl" withBorder className="bg-white border-[#E7E3DB] space-y-5 shadow-sm">
-          <div className="flex items-center gap-2 pb-3 border-b border-[#E7E3DB]">
-            <Music size={18} className="text-[#263B35]" />
-            <h4 className="font-editorial text-base font-semibold text-[#252925]">
+        <Card radius="xl" p="xl" withBorder className="bg-white border-border-warm space-y-5 shadow-sm">
+          <div className="flex items-center gap-2 pb-3 border-b border-border-warm">
+            <Music size={18} className="text-forest" />
+            <h4 className="font-editorial text-base font-semibold text-charcoal">
               Banda Sonora & Efectos
             </h4>
           </div>
@@ -196,9 +196,9 @@ export default function TabAudio({ project, onUpdateAudio, onNextStage }: TabAud
             />
 
             <div>
-              <div className="flex justify-between text-xs font-medium text-[#252925] mb-2">
+              <div className="flex justify-between text-xs font-medium text-charcoal mb-2">
                 <span>Volumen de la música</span>
-                <span className="text-[#263B35] font-bold">{config.musicVolume}%</span>
+                <span className="text-forest font-bold">{config.musicVolume}%</span>
               </div>
               <Slider
                 value={config.musicVolume}

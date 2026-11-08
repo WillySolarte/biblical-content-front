@@ -129,16 +129,16 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
   return (
     <div className="space-y-6">
       {/* AI Context Proposal Card */}
-      <Card radius="xl" p="xl" withBorder className="bg-gradient-to-br from-[#263B35] to-[#1A2925] text-white shadow-md">
+      <Card radius="xl" p="xl" withBorder className="bg-linear-to-br from-forest to-forest-dark text-white shadow-md">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Sparkles className="w-5 h-5 text-[#D6B77A]" />
-              <span className="text-xs uppercase tracking-wider text-[#D6B77A] font-bold">
+              <Sparkles className="w-5 h-5 text-gold" />
+              <span className="text-xs uppercase tracking-wider text-gold font-bold">
                 Análisis Teológico & Narrativo por IA
               </span>
             </div>
-            <h3 className="font-editorial text-2xl font-bold text-[#F5F0E6]">
+            <h3 className="font-editorial text-2xl font-bold text-ivory">
               Propuesta Editorial del Guión
             </h3>
           </div>
@@ -150,7 +150,7 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
             leftSection={<RefreshCw size={14} className={isAiRegenerating ? 'animate-spin' : ''} />}
             onClick={handleSimulateAiRegeneration}
             loading={isAiRegenerating}
-            className="bg-[#D6B77A]/20 text-[#D6B77A] hover:bg-[#D6B77A]/30 border border-[#D6B77A]/30"
+            className="bg-gold/20 text-gold hover:bg-gold/30 border border-gold/30"
           >
             Reanalizar con IA
           </Button>
@@ -158,21 +158,21 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 text-sm">
           <div className="space-y-1">
-            <span className="text-xs text-[#D6B77A] font-semibold block uppercase">Mensaje Central</span>
+            <span className="text-xs text-gold font-semibold block uppercase">Mensaje Central</span>
             <p className="text-white/90 text-xs leading-relaxed font-serif">
               "{context.coreTheologicalMessage}"
             </p>
           </div>
 
           <div className="space-y-1">
-            <span className="text-xs text-[#D6B77A] font-semibold block uppercase">Contexto Histórico & Autor</span>
+            <span className="text-xs text-gold font-semibold block uppercase">Contexto Histórico & Autor</span>
             <p className="text-white/80 text-xs leading-relaxed">
               {context.author} • {context.historicalPeriod}
             </p>
           </div>
 
           <div className="space-y-1">
-            <span className="text-xs text-[#D6B77A] font-semibold block uppercase">Ejes Temáticos</span>
+            <span className="text-xs text-gold font-semibold block uppercase">Ejes Temáticos</span>
             <div className="flex flex-wrap gap-1.5 pt-1">
               {context.keyThemes.map((theme, i) => (
                 <Badge key={i} size="xs" variant="filled" color="dark" className="bg-white/15 text-white">
@@ -185,15 +185,15 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
       </Card>
 
       {/* Storyboard Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-xl border border-[#E7E3DB]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-xl border border-border-warm">
         <div>
-          <h3 className="font-editorial text-lg font-semibold text-[#252925] flex items-center gap-2">
-            <Layers size={18} className="text-[#263B35]" />
+          <h3 className="font-editorial text-lg font-semibold text-charcoal flex items-center gap-2">
+            <Layers size={18} className="text-forest" />
             Storyboard & Guión Audiovisual ({project.scenes.length} escenas)
           </h3>
-          <p className="text-xs text-[#555E57]">
+          <p className="text-xs text-charcoal-muted">
             Duración estimada total:{' '}
-            <strong className="text-[#263B35]">
+            <strong className="text-forest">
               {project.scenes.reduce((acc, s) => acc + s.durationSeconds, 0)} segundos
             </strong>
           </p>
@@ -230,13 +230,13 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
             radius="xl" 
             p="lg" 
             withBorder 
-            className="bg-white border-[#E7E3DB] hover:border-[#D6B77A] transition-all shadow-sm"
+            className="bg-white border-border-warm hover:border-gold transition-all shadow-sm"
           >
             <div className="flex flex-col lg:flex-row gap-5 items-start">
               {/* Scene Number & Badge */}
-              <div className="flex lg:flex-col items-center justify-between w-full lg:w-28 shrink-0 pb-3 lg:pb-0 lg:border-r border-[#E7E3DB] pr-4">
+              <div className="flex lg:flex-col items-center justify-between w-full lg:w-28 shrink-0 pb-3 lg:pb-0 lg:border-r border-border-warm pr-4">
                 <div className="flex items-center lg:flex-col gap-2">
-                  <div className="w-10 h-10 rounded-xl bg-[#EDF3F0] text-[#263B35] font-bold text-base flex items-center justify-center font-editorial">
+                  <div className="w-10 h-10 rounded-xl bg-forest-subtle text-forest font-bold text-base flex items-center justify-center font-editorial">
                     #{scene.sceneNumber}
                   </div>
                   <Badge 
@@ -248,7 +248,7 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
                   </Badge>
                 </div>
 
-                <div className="flex items-center gap-1 text-xs text-[#555E57] lg:mt-3">
+                <div className="flex items-center gap-1 text-xs text-charcoal-muted lg:mt-3">
                   <Clock size={12} />
                   <span>{scene.durationSeconds}s</span>
                 </div>
@@ -257,7 +257,7 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
               {/* Scene Content */}
               <div className="flex-1 space-y-3">
                 <div className="flex items-start justify-between gap-3">
-                  <h4 className="font-editorial text-lg font-semibold text-[#252925]">
+                  <h4 className="font-editorial text-lg font-semibold text-charcoal">
                     {scene.title}
                   </h4>
 
@@ -286,26 +286,26 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
                 </div>
 
                 {/* Voiceover Script */}
-                <div className="p-3.5 bg-[#FAF8F5] rounded-xl border border-[#E7E3DB] space-y-1">
-                  <span className="text-[11px] uppercase font-bold tracking-wider text-[#263B35] flex items-center gap-1.5">
-                    <Mic size={13} className="text-[#D6B77A]" />
+                <div className="p-3.5 bg-ivory-light rounded-xl border border-border-warm space-y-1">
+                  <span className="text-[11px] uppercase font-bold tracking-wider text-forest flex items-center gap-1.5">
+                    <Mic size={13} className="text-gold" />
                     Guión / Locución en Off
                   </span>
-                  <p className="font-serif text-sm text-[#252925] italic leading-relaxed">
+                  <p className="font-serif text-sm text-charcoal italic leading-relaxed">
                     "{scene.voiceover}"
                   </p>
                 </div>
 
                 {/* Visual Prompt for IA */}
-                <div className="p-3 bg-white rounded-lg border border-[#E7E3DB] text-xs space-y-1">
+                <div className="p-3 bg-white rounded-lg border border-border-warm text-xs space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#555E57] flex items-center gap-1">
-                      <Camera size={13} className="text-[#263B35]" />
+                    <span className="font-semibold text-charcoal-muted flex items-center gap-1">
+                      <Camera size={13} className="text-forest" />
                       Prompt Visual para Imagen IA:
                     </span>
                     <Badge size="xs" variant="outline" color="dark">{scene.shotType}</Badge>
                   </div>
-                  <p className="text-[#555E57] font-mono text-[11px] leading-relaxed bg-[#FAF8F5] p-2 rounded">
+                  <p className="text-charcoal-muted font-mono text-[11px] leading-relaxed bg-ivory-light p-2 rounded">
                     {scene.visualPrompt}
                   </p>
                 </div>
@@ -320,7 +320,7 @@ export default function TabContentStoryboard({ project, onUpdateScenes, onNextSt
         opened={!!editingScene}
         onClose={() => setEditingScene(null)}
         title={
-          <span className="font-editorial text-lg font-bold text-[#252925]">
+          <span className="font-editorial text-lg font-bold text-charcoal">
             Editar Escena #{editingScene?.sceneNumber}
           </span>
         }

@@ -23,19 +23,19 @@ export default function SettingsView() {
   return (
     <div className="max-w-4xl mx-auto space-y-6 py-2">
       <div>
-        <h1 className="font-editorial text-2xl sm:text-3xl font-bold text-[#252925] tracking-tight">
+        <h1 className="font-editorial text-2xl sm:text-3xl font-bold text-charcoal tracking-tight">
           Ajustes del Estudio
         </h1>
-        <p className="text-sm text-[#555E57] mt-1">
+        <p className="text-sm text-charcoal-muted mt-1">
           Configura tus preferencias de producción, perfil de creador y parámetros predeterminados de IA.
         </p>
       </div>
 
       {/* Profile Card */}
-      <Card radius="xl" p="xl" withBorder className="bg-white border-[#E7E3DB] space-y-5 shadow-sm">
-        <div className="flex items-center gap-2 pb-3 border-b border-[#E7E3DB]">
-          <User size={18} className="text-[#263B35]" />
-          <h3 className="font-editorial text-base font-bold text-[#252925]">
+      <Card radius="xl" p="xl" withBorder className="bg-white border-border-warm space-y-5 shadow-sm">
+        <div className="flex items-center gap-2 pb-3 border-b border-border-warm">
+          <User size={18} className="text-forest" />
+          <h3 className="font-editorial text-base font-bold text-charcoal">
             Perfil de Creador
           </h3>
         </div>
@@ -50,11 +50,11 @@ export default function SettingsView() {
           />
           <div className="space-y-1 text-center sm:text-left">
             <div className="flex items-center gap-2 justify-center sm:justify-start">
-              <span className="font-bold text-base text-[#252925]">{name}</span>
+              <span className="font-bold text-base text-charcoal">{name}</span>
               <Badge color="forest" variant="light" size="xs">Cuenta Verificada</Badge>
             </div>
-            <p className="text-xs text-[#8C938E]">{email}</p>
-            <p className="text-xs text-[#555E57]">{ministry}</p>
+            <p className="text-xs text-muted">{email}</p>
+            <p className="text-xs text-charcoal-muted">{ministry}</p>
           </div>
         </div>
 
@@ -82,10 +82,10 @@ export default function SettingsView() {
       </Card>
 
       {/* AI Production Defaults */}
-      <Card radius="xl" p="xl" withBorder className="bg-white border-[#E7E3DB] space-y-5 shadow-sm">
-        <div className="flex items-center gap-2 pb-3 border-b border-[#E7E3DB]">
-          <Sparkles size={18} className="text-[#D6B77A]" />
-          <h3 className="font-editorial text-base font-bold text-[#252925]">
+      <Card radius="xl" p="xl" withBorder className="bg-white border-border-warm space-y-5 shadow-sm">
+        <div className="flex items-center gap-2 pb-3 border-b border-border-warm">
+          <Sparkles size={18} className="text-gold" />
+          <h3 className="font-editorial text-base font-bold text-charcoal">
             Preferencias Predeterminadas de IA
           </h3>
         </div>
@@ -105,7 +105,7 @@ export default function SettingsView() {
             onChange={(val) => val && setDefaultStyle(val)}
           />
 
-          <div className="sm:col-span-2 pt-2 border-t border-[#E7E3DB]">
+          <div className="sm:col-span-2 pt-2 border-t border-border-warm">
             <Switch
               label="Activar incrustación automática de subtítulos editoriales"
               description="Aplica subtítulos con estilo Lora en todas las nuevas exportaciones"
@@ -121,7 +121,7 @@ export default function SettingsView() {
             color="forest"
             leftSection={<Save size={16} />}
             onClick={handleSave}
-            className="bg-[#263B35] hover:bg-[#1A2925]"
+            className="bg-forest hover:bg-forest-dark"
           >
             Guardar preferencias
           </Button>

@@ -29,7 +29,7 @@ export default function ProjectOverviewHeader({
   ).join(', ');
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E7E3DB] p-6 shadow-sm space-y-5">
+    <div className="bg-white rounded-2xl border border-border-warm p-6 shadow-sm space-y-5">
       {/* Top breadcrumb & actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -39,11 +39,11 @@ export default function ProjectOverviewHeader({
             size="sm"
             leftSection={<ArrowLeft size={16} />}
             onClick={() => navigate(routes.app.projects)}
-            className="text-[#555E57] hover:text-[#263B35]"
+            className="text-charcoal-muted hover:text-forest"
           >
             Mis proyectos
           </Button>
-          <span className="text-[#D8D4CC]">|</span>
+          <span className="text-sand">|</span>
           <div className="flex items-center gap-2">
             <ProjectStatusBadge status={project.status} size="md" />
             <ProductionStageBadge stage={project.stage} size="sm" />
@@ -70,7 +70,7 @@ export default function ProjectOverviewHeader({
             size="sm"
             leftSection={<Download size={14} />}
             onClick={onGoToExport}
-            className="bg-[#263B35] hover:bg-[#1A2925]"
+            className="bg-forest hover:bg-forest-dark"
           >
             Exportar video
           </Button>
@@ -83,39 +83,39 @@ export default function ProjectOverviewHeader({
           <Badge color="forest" variant="light" size="md">
             {project.bibleVersion}
           </Badge>
-          <span className="font-serif text-sm font-semibold text-[#263B35] flex items-center gap-1.5 bg-[#FAF8F5] px-3 py-1 rounded-md border border-[#E7E3DB]">
-            <BookOpen size={14} className="text-[#D6B77A]" />
+          <span className="font-serif text-sm font-semibold text-forest flex items-center gap-1.5 bg-ivory-light px-3 py-1 rounded-md border border-border-warm">
+            <BookOpen size={14} className="text-gold" />
             {passageSummary || 'Sin pasaje'}
           </span>
-          <span className="text-xs text-[#8C938E]">
+          <span className="text-xs text-muted">
             Formato: <strong>{project.videoConfig.aspectRatio}</strong> • {project.visualStyle}
           </span>
         </div>
 
-        <h1 className="font-editorial text-2xl sm:text-3xl font-bold text-[#252925] tracking-tight">
+        <h1 className="font-editorial text-2xl sm:text-3xl font-bold text-charcoal tracking-tight">
           {project.title}
         </h1>
 
-        <p className="text-sm text-[#555E57] max-w-3xl leading-relaxed">
+        <p className="text-sm text-charcoal-muted max-w-3xl leading-relaxed">
           {project.description || 'Proyecto de creación de contenido audiovisual basado en pasajes bíblicos mediante inteligencia artificial.'}
         </p>
       </div>
 
       {/* Production Progress Bar */}
-      <div className="pt-3 border-t border-[#E7E3DB] space-y-1.5">
+      <div className="pt-3 border-t border-border-warm space-y-1.5">
         <div className="flex items-center justify-between text-xs font-medium">
-          <span className="text-[#555E57] flex items-center gap-1.5">
-            <Sparkles size={13} className="text-[#D6B77A]" />
+          <span className="text-charcoal-muted flex items-center gap-1.5">
+            <Sparkles size={13} className="text-gold" />
             Progreso general de producción audiovisual
           </span>
-          <span className="text-[#263B35] font-bold">{project.progress}%</span>
+          <span className="text-forest font-bold">{project.progress}%</span>
         </div>
         <Progress 
           value={project.progress} 
           size="md" 
           color="forest" 
           radius="xl"
-          className="bg-[#EDF3F0]"
+          className="bg-forest-subtle"
         />
       </div>
     </div>

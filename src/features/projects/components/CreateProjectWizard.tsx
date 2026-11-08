@@ -173,7 +173,7 @@ export default function CreateProjectWizard() {
 
   return (
     <div className="max-w-4xl mx-auto py-4">
-      <Card radius="xl" p="xl" withBorder className="bg-white border-[#E7E3DB] shadow-sm">
+      <Card radius="xl" p="xl" withBorder className="bg-white border-border-warm shadow-sm">
         <Stepper 
           active={activeStep} 
           onStepClick={setActiveStep} 
@@ -202,10 +202,10 @@ export default function CreateProjectWizard() {
           {activeStep === 0 && (
             <div className="space-y-6">
               <div>
-                <h2 className="font-editorial text-2xl font-semibold text-[#252925]">
+                <h2 className="font-editorial text-2xl font-semibold text-charcoal">
                   Define la identidad de tu proyecto
                 </h2>
-                <p className="text-sm text-[#555E57] mt-1">
+                <p className="text-sm text-charcoal-muted mt-1">
                   Establece el nombre, propósito y dirección artística de la producción.
                 </p>
               </div>
@@ -231,7 +231,7 @@ export default function CreateProjectWizard() {
 
                 {/* Formato / Aspect Ratio */}
                 <div>
-                  <label className="text-sm font-medium text-[#252925] block mb-2">
+                  <label className="text-sm font-medium text-charcoal block mb-2">
                     Formato de video principal
                   </label>
                   <Controller
@@ -243,39 +243,39 @@ export default function CreateProjectWizard() {
                           onClick={() => field.onChange('16:9')}
                           className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col items-center text-center ${
                             field.value === '16:9'
-                              ? 'border-[#263B35] bg-[#EDF3F0]/60 text-[#263B35]'
-                              : 'border-[#E7E3DB] hover:border-[#D6B77A] text-[#555E57]'
+                              ? 'border-forest bg-forest-subtle/60 text-forest'
+                              : 'border-border-warm hover:border-gold text-charcoal-muted'
                           }`}
                         >
-                          <Tv className="w-6 h-6 mb-2 text-[#263B35]" />
+                          <Tv className="w-6 h-6 mb-2 text-forest" />
                           <span className="font-semibold text-sm">Horizontal (16:9)</span>
-                          <span className="text-xs text-[#8C938E] mt-0.5">YouTube, Web, Pantallas</span>
+                          <span className="text-xs text-muted mt-0.5">YouTube, Web, Pantallas</span>
                         </div>
 
                         <div
                           onClick={() => field.onChange('9:16')}
                           className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col items-center text-center ${
                             field.value === '9:16'
-                              ? 'border-[#263B35] bg-[#EDF3F0]/60 text-[#263B35]'
-                              : 'border-[#E7E3DB] hover:border-[#D6B77A] text-[#555E57]'
+                              ? 'border-forest bg-forest-subtle/60 text-forest'
+                              : 'border-border-warm hover:border-gold text-charcoal-muted'
                           }`}
                         >
-                          <Smartphone className="w-6 h-6 mb-2 text-[#263B35]" />
+                          <Smartphone className="w-6 h-6 mb-2 text-forest" />
                           <span className="font-semibold text-sm">Vertical (9:16)</span>
-                          <span className="text-xs text-[#8C938E] mt-0.5">Shorts, Reels, TikTok</span>
+                          <span className="text-xs text-muted mt-0.5">Shorts, Reels, TikTok</span>
                         </div>
 
                         <div
                           onClick={() => field.onChange('1:1')}
                           className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col items-center text-center ${
                             field.value === '1:1'
-                              ? 'border-[#263B35] bg-[#EDF3F0]/60 text-[#263B35]'
-                              : 'border-[#E7E3DB] hover:border-[#D6B77A] text-[#555E57]'
+                              ? 'border-forest bg-forest-subtle/60 text-forest'
+                              : 'border-border-warm hover:border-gold text-charcoal-muted'
                           }`}
                         >
-                          <Square className="w-6 h-6 mb-2 text-[#263B35]" />
+                          <Square className="w-6 h-6 mb-2 text-forest" />
                           <span className="font-semibold text-sm">Cuadrado (1:1)</span>
-                          <span className="text-xs text-[#8C938E] mt-0.5">Feed redes sociales</span>
+                          <span className="text-xs text-muted mt-0.5">Feed redes sociales</span>
                         </div>
                       </div>
                     )}
@@ -320,17 +320,17 @@ export default function CreateProjectWizard() {
           {activeStep === 1 && (
             <div className="space-y-6">
               <div>
-                <h2 className="font-editorial text-2xl font-semibold text-[#252925]">
+                <h2 className="font-editorial text-2xl font-semibold text-charcoal">
                   Selección de pasajes bíblicos
                 </h2>
-                <p className="text-sm text-[#555E57] mt-1">
+                <p className="text-sm text-charcoal-muted mt-1">
                   Elige la traducción de las Escrituras y agrega uno o varios rangos de versículos consecutivos.
                 </p>
               </div>
 
               {/* Versión Bíblica */}
               <div className="space-y-3">
-                <label className="text-sm font-medium text-[#252925] block">
+                <label className="text-sm font-medium text-charcoal block">
                   Versión de la Biblia
                 </label>
                 <Controller
@@ -344,16 +344,16 @@ export default function CreateProjectWizard() {
                           onClick={() => field.onChange(ver.code)}
                           className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                             field.value === ver.code
-                              ? 'border-[#263B35] bg-[#EDF3F0] ring-1 ring-[#263B35]'
-                              : 'border-[#E7E3DB] hover:border-[#D6B77A] bg-white'
+                              ? 'border-forest bg-forest-subtle ring-1 ring-forest'
+                              : 'border-border-warm hover:border-gold bg-white'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-sm text-[#263B35]">{ver.code}</span>
+                            <span className="font-bold text-sm text-forest">{ver.code}</span>
                             <Badge size="xs" variant="light" color="forest">{ver.language}</Badge>
                           </div>
-                          <p className="font-semibold text-xs text-[#252925] mt-1">{ver.name}</p>
-                          <p className="text-[11px] text-[#555E57] mt-1 line-clamp-2 leading-tight">
+                          <p className="font-semibold text-xs text-charcoal mt-1">{ver.name}</p>
+                          <p className="text-[11px] text-charcoal-muted mt-1 line-clamp-2 leading-tight">
                             {ver.description}
                           </p>
                         </div>
@@ -364,10 +364,10 @@ export default function CreateProjectWizard() {
               </div>
 
               {/* Pasajes seleccionados list */}
-              <div className="bg-[#FAF8F5] p-5 rounded-xl border border-[#E7E3DB] space-y-4">
+              <div className="bg-ivory-light p-5 rounded-xl border border-border-warm space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-editorial text-base font-semibold text-[#263B35] flex items-center gap-2">
-                    <BookOpen size={16} className="text-[#D6B77A]" />
+                  <h3 className="font-editorial text-base font-semibold text-forest flex items-center gap-2">
+                    <BookOpen size={16} className="text-gold" />
                     Pasajes seleccionados ({selectedPassages.length})
                   </h3>
                   {errors.passages && (
@@ -378,7 +378,7 @@ export default function CreateProjectWizard() {
                 </div>
 
                 {selectedPassages.length === 0 ? (
-                  <div className="p-6 text-center border-2 border-dashed border-[#E7E3DB] rounded-lg text-sm text-[#8C938E]">
+                  <div className="p-6 text-center border-2 border-dashed border-border-warm rounded-lg text-sm text-muted">
                     No has agregado ningún pasaje. Utiliza el selector inferior para añadir versículos.
                   </div>
                 ) : (
@@ -386,18 +386,18 @@ export default function CreateProjectWizard() {
                     {selectedPassages.map((p, idx) => (
                       <div
                         key={p.id}
-                        className="flex items-center justify-between p-3.5 bg-white rounded-lg border border-[#E7E3DB] shadow-2xs"
+                        className="flex items-center justify-between p-3.5 bg-white rounded-lg border border-border-warm shadow-2xs"
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-6 h-6 rounded-full bg-[#EDF3F0] text-[#263B35] text-xs font-bold flex items-center justify-center shrink-0">
+                          <span className="w-6 h-6 rounded-full bg-forest-subtle text-forest text-xs font-bold flex items-center justify-center shrink-0">
                             {idx + 1}
                           </span>
                           <div>
-                            <span className="font-serif font-semibold text-sm text-[#252925]">
+                            <span className="font-serif font-semibold text-sm text-charcoal">
                               {p.book} {p.chapter}:{p.verseStart}{p.verseEnd > p.verseStart ? `-${p.verseEnd}` : ''}
                             </span>
                             {p.sampleText && (
-                              <p className="text-xs text-[#555E57] italic line-clamp-1 mt-0.5">
+                              <p className="text-xs text-charcoal-muted italic line-clamp-1 mt-0.5">
                                 "{p.sampleText}"
                               </p>
                             )}
@@ -419,8 +419,8 @@ export default function CreateProjectWizard() {
                 )}
 
                 {/* Range Builder Form */}
-                <div className="pt-3 border-t border-[#E7E3DB] space-y-3">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#555E57] block">
+                <div className="pt-3 border-t border-border-warm space-y-3">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-charcoal-muted block">
                     Añadir nuevo rango de versículos
                   </span>
 
@@ -486,65 +486,65 @@ export default function CreateProjectWizard() {
           {activeStep === 2 && (
             <div className="space-y-6">
               <div>
-                <h2 className="font-editorial text-2xl font-semibold text-[#252925]">
+                <h2 className="font-editorial text-2xl font-semibold text-charcoal">
                   Confirmación del nuevo proyecto
                 </h2>
-                <p className="text-sm text-[#555E57] mt-1">
+                <p className="text-sm text-charcoal-muted mt-1">
                   Revisa los parámetros antes de inicializar el espacio de trabajo con IA.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-[#FAF8F5] p-4 rounded-xl border border-[#E7E3DB] space-y-3">
-                  <span className="text-xs font-semibold text-[#8C938E] uppercase tracking-wider">
+                <div className="bg-ivory-light p-4 rounded-xl border border-border-warm space-y-3">
+                  <span className="text-xs font-semibold text-muted uppercase tracking-wider">
                     Detalles del proyecto
                   </span>
                   <div>
-                    <h3 className="font-editorial text-lg font-semibold text-[#252925]">
+                    <h3 className="font-editorial text-lg font-semibold text-charcoal">
                       {selectedTitle || 'Sin título'}
                     </h3>
-                    <p className="text-xs text-[#555E57] mt-1">
+                    <p className="text-xs text-charcoal-muted mt-1">
                       {watch('description') || 'Sin descripción adicional.'}
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-[#E7E3DB] space-y-2 text-xs">
+                  <div className="pt-2 border-t border-border-warm space-y-2 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-[#555E57]">Formato:</span>
-                      <strong className="text-[#263B35]">{selectedAspectRatio}</strong>
+                      <span className="text-charcoal-muted">Formato:</span>
+                      <strong className="text-forest">{selectedAspectRatio}</strong>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#555E57]">Estilo visual:</span>
-                      <strong className="text-[#263B35]">
+                      <span className="text-charcoal-muted">Estilo visual:</span>
+                      <strong className="text-forest">
                         {VISUAL_STYLES.find(s => s.value === selectedStyle)?.label || selectedStyle}
                       </strong>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#555E57]">Tono:</span>
-                      <strong className="text-[#263B35]">
+                      <span className="text-charcoal-muted">Tono:</span>
+                      <strong className="text-forest">
                         {NARRATIVE_TONES.find(t => t.value === selectedTone)?.label || selectedTone}
                       </strong>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-[#FAF8F5] p-4 rounded-xl border border-[#E7E3DB] space-y-3">
-                  <span className="text-xs font-semibold text-[#8C938E] uppercase tracking-wider">
+                <div className="bg-ivory-light p-4 rounded-xl border border-border-warm space-y-3">
+                  <span className="text-xs font-semibold text-muted uppercase tracking-wider">
                     Fundamento bíblico
                   </span>
                   <div className="flex items-center gap-2">
                     <Badge color="forest" size="md">{selectedVersion}</Badge>
-                    <span className="text-xs text-[#555E57]">
+                    <span className="text-xs text-charcoal-muted">
                       {BIBLE_VERSIONS.find(v => v.code === selectedVersion)?.name}
                     </span>
                   </div>
 
-                  <div className="space-y-1.5 pt-2 border-t border-[#E7E3DB]">
-                    <span className="text-xs font-medium text-[#252925] block">
+                  <div className="space-y-1.5 pt-2 border-t border-border-warm">
+                    <span className="text-xs font-medium text-charcoal block">
                       Pasajes incluidos:
                     </span>
                     {selectedPassages.map((p, idx) => (
-                      <div key={p.id} className="text-xs text-[#263B35] font-serif bg-white p-2 rounded border border-[#E7E3DB]">
+                      <div key={p.id} className="text-xs text-forest font-serif bg-white p-2 rounded border border-border-warm">
                         {idx + 1}. {p.book} {p.chapter}:{p.verseStart}{p.verseEnd > p.verseStart ? `-${p.verseEnd}` : ''}
                       </div>
                     ))}
@@ -553,9 +553,9 @@ export default function CreateProjectWizard() {
               </div>
 
               {/* What happens next banner */}
-              <div className="p-4 rounded-xl bg-[#EDF3F0] border border-[#263B35]/20 flex items-start gap-3">
-                <Sparkles className="w-5 h-5 text-[#263B35] shrink-0 mt-0.5" />
-                <div className="text-xs text-[#263B35] space-y-1">
+              <div className="p-4 rounded-xl bg-forest-subtle border border-forest/20 flex items-start gap-3">
+                <Sparkles className="w-5 h-5 text-forest shrink-0 mt-0.5" />
+                <div className="text-xs text-forest space-y-1">
                   <strong className="font-semibold block text-sm">¿Qué sucederá a continuación?</strong>
                   <p>
                     Al crear el proyecto, entrarás al estudio creativo de Biblia Studio. Podrás activar el análisis teológico asistido por IA, revisar la propuesta de guión escénico y generar el storyboard audiovisual paso a paso.
@@ -566,7 +566,7 @@ export default function CreateProjectWizard() {
           )}
 
           {/* Stepper Navigation Buttons */}
-          <Group justify="space-between" mt="xl" className="pt-4 border-t border-[#E7E3DB]">
+          <Group justify="space-between" mt="xl" className="pt-4 border-t border-border-warm">
             <Button
               variant="default"
               onClick={prevStep}
@@ -590,7 +590,7 @@ export default function CreateProjectWizard() {
                 color="forest"
                 size="md"
                 leftSection={<Sparkles size={16} />}
-                className="bg-[#263B35] hover:bg-[#1A2925]"
+                className="bg-forest hover:bg-forest-dark"
               >
                 Crear proyecto e iniciar estudio
               </Button>

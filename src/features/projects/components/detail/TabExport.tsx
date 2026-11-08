@@ -71,73 +71,73 @@ export default function TabExport({ project }: TabExportProps) {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <Card radius="xl" p="xl" withBorder className="bg-white border-[#E7E3DB] shadow-sm space-y-6">
+      <Card radius="xl" p="xl" withBorder className="bg-white border-border-warm shadow-sm space-y-6">
         <div>
-          <h3 className="font-editorial text-2xl font-semibold text-[#252925] flex items-center gap-2">
-            <Download size={22} className="text-[#263B35]" />
+          <h3 className="font-editorial text-2xl font-semibold text-charcoal flex items-center gap-2">
+            <Download size={22} className="text-forest" />
             Exportación y Entrega Final
           </h3>
-          <p className="text-sm text-[#555E57] mt-1">
+          <p className="text-sm text-charcoal-muted mt-1">
             Configura los parámetros de codificación para generar el archivo audiovisual final.
           </p>
         </div>
 
         {/* Project Summary Box */}
-        <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E7E3DB] grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+        <div className="p-4 rounded-xl bg-ivory-light border border-border-warm grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
           <div>
-            <span className="text-[#8C938E] block uppercase">Escenas</span>
-            <strong className="text-sm text-[#263B35]">{project.scenes.length} escenas</strong>
+            <span className="text-muted block uppercase">Escenas</span>
+            <strong className="text-sm text-forest">{project.scenes.length} escenas</strong>
           </div>
           <div>
-            <span className="text-[#8C938E] block uppercase">Duración</span>
-            <strong className="text-sm text-[#263B35]">
+            <span className="text-muted block uppercase">Duración</span>
+            <strong className="text-sm text-forest">
               {project.scenes.reduce((acc, s) => acc + s.durationSeconds, 0)} segundos
             </strong>
           </div>
           <div>
-            <span className="text-[#8C938E] block uppercase">Formato</span>
-            <strong className="text-sm text-[#263B35]">{project.videoConfig.aspectRatio}</strong>
+            <span className="text-muted block uppercase">Formato</span>
+            <strong className="text-sm text-forest">{project.videoConfig.aspectRatio}</strong>
           </div>
           <div>
-            <span className="text-[#8C938E] block uppercase">Resolución</span>
-            <strong className="text-sm text-[#263B35]">{project.videoConfig.resolution}</strong>
+            <span className="text-muted block uppercase">Resolución</span>
+            <strong className="text-sm text-forest">{project.videoConfig.resolution}</strong>
           </div>
         </div>
 
         {/* Export Settings */}
         <div className="space-y-4">
-          <label className="text-sm font-semibold text-[#252925] block">
+          <label className="text-sm font-semibold text-charcoal block">
             Formato de codificación
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-3.5 rounded-xl border-2 border-[#263B35] bg-[#EDF3F0] text-[#263B35] cursor-pointer">
+            <div className="p-3.5 rounded-xl border-2 border-forest bg-forest-subtle text-forest cursor-pointer">
               <span className="font-bold text-sm block">MP4 (H.264)</span>
-              <span className="text-xs text-[#555E57]">Máxima compatibilidad web, móvil y televisores</span>
+              <span className="text-xs text-charcoal-muted">Máxima compatibilidad web, móvil y televisores</span>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-[#E7E3DB] text-[#555E57] opacity-60">
+            <div className="p-3.5 rounded-xl border border-border-warm text-charcoal-muted opacity-60">
               <span className="font-bold text-sm block">ProRes 422</span>
-              <span className="text-xs text-[#8C938E]">Para edición posterior (Próximamente)</span>
+              <span className="text-xs text-muted">Para edición posterior (Próximamente)</span>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-[#E7E3DB] text-[#555E57] opacity-60">
+            <div className="p-3.5 rounded-xl border border-border-warm text-charcoal-muted opacity-60">
               <span className="font-bold text-sm block">Solo Audio (MP3/WAV)</span>
-              <span className="text-xs text-[#8C938E]">Para podcasts devocionales</span>
+              <span className="text-xs text-muted">Para podcasts devocionales</span>
             </div>
           </div>
         </div>
 
         {/* Action Button or Success State */}
         {isDone ? (
-          <div className="p-6 rounded-2xl bg-[#EDF3F0] border border-[#263B35]/30 space-y-4 text-center">
-            <div className="w-12 h-12 rounded-full bg-[#263B35] text-white flex items-center justify-center mx-auto">
+          <div className="p-6 rounded-2xl bg-forest-subtle border border-forest/30 space-y-4 text-center">
+            <div className="w-12 h-12 rounded-full bg-forest text-white flex items-center justify-center mx-auto">
               <CheckCircle2 size={26} />
             </div>
             <div>
-              <h4 className="font-editorial text-xl font-bold text-[#263B35]">
+              <h4 className="font-editorial text-xl font-bold text-forest">
                 ¡Video renderizado y listo!
               </h4>
-              <p className="text-xs text-[#555E57] mt-1">
+              <p className="text-xs text-charcoal-muted mt-1">
                 El archivo MP4 en resolución {project.videoConfig.resolution} ({project.videoConfig.aspectRatio}) está preparado.
               </p>
             </div>
@@ -148,7 +148,7 @@ export default function TabExport({ project }: TabExportProps) {
                 size="md"
                 leftSection={<Download size={16} />}
                 onClick={handleDownload}
-                className="bg-[#263B35] hover:bg-[#1A2925]"
+                className="bg-forest hover:bg-forest-dark"
               >
                 Descargar video final (MP4)
               </Button>
@@ -172,7 +172,7 @@ export default function TabExport({ project }: TabExportProps) {
               leftSection={<Film size={18} />}
               onClick={handleStartExport}
               loading={isExporting}
-              className="bg-[#263B35] hover:bg-[#1A2925]"
+              className="bg-forest hover:bg-forest-dark"
             >
               Iniciar exportación de video
             </Button>
@@ -190,22 +190,22 @@ export default function TabExport({ project }: TabExportProps) {
         radius="lg"
       >
         <div className="p-4 text-center space-y-4">
-          <div className="w-12 h-12 rounded-full bg-[#EDF3F0] text-[#263B35] flex items-center justify-center mx-auto animate-pulse">
+          <div className="w-12 h-12 rounded-full bg-forest-subtle text-forest flex items-center justify-center mx-auto animate-pulse">
             <Sparkles size={24} />
           </div>
 
           <div>
-            <h4 className="font-editorial text-lg font-bold text-[#252925]">
+            <h4 className="font-editorial text-lg font-bold text-charcoal">
               Renderizando proyecto audiovisual
             </h4>
-            <p className="text-xs text-[#555E57] mt-1 font-mono">
+            <p className="text-xs text-charcoal-muted mt-1 font-mono">
               {exportStageText}
             </p>
           </div>
 
           <Progress value={exportProgress} color="forest" size="md" radius="xl" striped animated />
 
-          <span className="text-xs text-[#8C938E] block">
+          <span className="text-xs text-muted block">
             {exportProgress}% completado
           </span>
         </div>
