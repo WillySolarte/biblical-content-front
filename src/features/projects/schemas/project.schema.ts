@@ -25,3 +25,17 @@ export const CreateProjectSchema = z.object({
 export type TCreateProjectInput = z.infer<typeof CreateProjectSchema>;
 export type TPassageRangeInput = z.infer<typeof PassageRangeSchema>;
 
+export const CreateProjectPassagesSchema = z.object({
+
+})
+
+
+export const CreateProjectFormSchema = z.object({
+  name: z
+    .string({ error: 'Debe ingresar un nombre' }) 
+    .min(1, { message: 'Debe ingresar un nombre' })        
+    .max(160, { message: 'El nombre no puede tener más de 160 caracteres' }), 
+
+  description: z.string().nullable().optional(),
+
+})

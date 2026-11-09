@@ -20,6 +20,7 @@ import TabImages from '../components/detail/TabImages';
 import TabAudio from '../components/detail/TabAudio';
 import TabVideo from '../components/detail/TabVideo';
 import TabExport from '../components/detail/TabExport';
+import PassagesModal from '../components/detail/PassagesModal';
 import { routes } from '@/common/constants/routes';
 
 export default function ProjectDetailView() {
@@ -27,6 +28,7 @@ export default function ProjectDetailView() {
   const navigate = useNavigate();
   const { projects, loading, updateProject } = useProjects();
   const [activeTab, setActiveTab] = useState<string | null>('passages');
+  const [passagesModalOpened, setPassagesModalOpened] = useState(false);
 
   const currentProject = projects.find(p => p.id === id);
 
@@ -87,6 +89,19 @@ export default function ProjectDetailView() {
         onUpdateStatus={handleUpdateStatus}
         onGoToExport={() => setActiveTab('export')}
       />
+
+      {/* Passages Modal Trigger */}
+      <div className="flex justify-end">
+        <Button
+          color="forest"
+          size="sm"
+          leftSection={<BookOpen size={16} />}
+          onClick={() => setPassagesModalOpened(true)}
+          className="bg-forest hover:bg-forest-dark"
+        >
+          Gestionar pasajes bíblicos
+        </Button>
+      </div>
 
       {/* Production Stages Tabs */}
       <Tabs 
@@ -194,6 +209,13 @@ export default function ProjectDetailView() {
           <TabExport project={currentProject} />
         </Tabs.Panel>
       </Tabs>
+
+      <PassagesModal
+        opened={passagesModalOpened}
+        onClose={() => setPassagesModalOpened(false)}
+        project={currentProject}
+        onSave={(data) => updateProject(currentProject.id, data)}
+      />
     </div>
   );
 }

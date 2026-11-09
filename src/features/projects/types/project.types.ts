@@ -1,3 +1,6 @@
+import type z from "zod";
+import type { CreateProjectFormSchema } from "../schemas/project.schema";
+
 export type ProjectStatus =
   | 'DRAFT'
   | 'ACTIVE'
@@ -99,3 +102,6 @@ export interface BibleVersion {
   description: string;
 }
 
+//Propios
+
+export type TCreateProjectForm = z.infer<typeof CreateProjectFormSchema>
