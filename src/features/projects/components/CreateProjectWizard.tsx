@@ -4,7 +4,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput, Textarea, Card } from '@mantine/core';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 //My resources
 import type { TCreateProjectForm } from '../types/project.types';
 import { CreateProjectFormSchema } from '../schemas/project.schema';
@@ -12,6 +12,7 @@ import flashy from '@pablotheblink/flashyjs';
 import { createInitProject } from '../services/project.service';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@/common/constants/routes';
+import { queryKeys } from '@/common/constants/query-keys';
 
 
 
@@ -22,6 +23,7 @@ export default function CreateProjectWizard() {
     description: ''
   };
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const { register, handleSubmit, reset, formState: { errors } } = useForm<TCreateProjectForm>({ defaultValues: defaultValues, resolver: zodResolver(CreateProjectFormSchema) });
 
   const { mutate } = useMutation({
@@ -32,6 +34,7 @@ export default function CreateProjectWizard() {
     onSuccess: (dataOutput) => {
       reset()
       navigate(routes.app.projects, { replace: true })
+      queryClient.invalidateQueries({queryKey: queryKeys.projects.all})
       flashy.success(dataOutput.message, { animation: 'bounce', position: 'top-center' });
     },
   })

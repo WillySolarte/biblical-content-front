@@ -1,15 +1,17 @@
+//React
+
+//Libraries
 import { Button, Progress, Badge, Menu } from '@mantine/core';
-import { 
-  ArrowLeft, 
-  BookOpen, 
-  Sparkles, 
-  Download, 
-} from 'lucide-react';
+import { ArrowLeft, BookOpen, Sparkles, Download } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
+//My resources
+
 import type { Project, ProjectStatus } from '../../types/project.types';
 import ProjectStatusBadge from '../ProjectStatusBadge';
 import ProductionStageBadge from '../ProductionStageBadge';
 import { routes } from '@/common/constants/routes';
+
 
 interface ProjectOverviewHeaderProps {
   project: Project;
@@ -17,12 +19,10 @@ interface ProjectOverviewHeaderProps {
   onGoToExport: () => void;
 }
 
-export default function ProjectOverviewHeader({
-  project,
-  onUpdateStatus,
-  onGoToExport,
-}: ProjectOverviewHeaderProps) {
+export default function ProjectOverviewHeader({project, onUpdateStatus,  onGoToExport }: ProjectOverviewHeaderProps) {
   const navigate = useNavigate();
+
+  
 
   const passageSummary = project.passages.map(p => 
     `${p.book} ${p.chapter}:${p.verseStart}${p.verseEnd > p.verseStart ? `-${p.verseEnd}` : ''}`

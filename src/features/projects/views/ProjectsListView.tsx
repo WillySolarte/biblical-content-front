@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Skeleton } from '@mantine/core';
+import { Skeleton } from '@mantine/core';
 import { Plus, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useProjects } from '../hooks/useProjects';
@@ -9,27 +9,32 @@ import ProjectFilterBar from '../components/ProjectFilterBar';
 import DeleteProjectModal from '../components/DeleteProjectModal';
 import type { Project } from '../types/project.types';
 import { routes } from '@/common/constants/routes';
+import { useQuery } from '@tanstack/react-query';
+import { queryKeys } from '@/common/constants/query-keys';
+import { getProjects } from '../services/project.service';
+import Spinner from '@/common/components/spinner/Spinner';
 
 export default function ProjectsListView() {
   const navigate = useNavigate();
-  const {
-    projects,
-    filteredProjects,
-    loading,
-    search,
-    setSearch,
-    statusFilter,
-    setStatusFilter,
-    stageFilter,
-    setStageFilter,
-    sortBy,
-    setSortBy,
-    viewMode,
-    setViewMode,
+  const { projects, filteredProjects, loading, search, setSearch, statusFilter, setStatusFilter, stageFilter, setStageFilter, sortBy, setSortBy, viewMode, setViewMode,
     deleteProject,
   } = useProjects();
 
   const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: queryKeys.projects.all,
+    queryFn: getProjects,
+    retry: 1,
+
+  });
+  if (isError) console.error(error)
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
+  
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto py-2">
@@ -44,15 +49,9 @@ export default function ProjectsListView() {
           </p>
         </div>
 
-        <Button
-          color="forest"
-          size="md"
-          leftSection={<Plus size={16} />}
-          onClick={() => navigate(routes.app.createProject)}
-          className="bg-forest hover:bg-forest-dark shadow-sm self-start sm:self-auto"
-        >
-          Crear proyecto
-        </Button>
+        <button color="forest" onClick={() => navigate(routes.app.createProject)} className="flex justify-evenly items-center w-45 h-8 rounded-md cursor-pointer text-white bg-forest hover:bg-forest-dark shadow-sm self-start sm:self-auto">
+          <Plus size={16} /> Crear proyecto
+        </button>
       </div>
 
       {/* Filter and Search Bar */}
@@ -98,39 +97,22 @@ export default function ProjectsListView() {
             No hay proyectos que coincidan con los criterios de búsqueda o filtros seleccionados.
           </p>
 
-          <div className="pt-2 flex flex-col sm:flex-row gap-2 justify-center">
+          <div className="pt-2 flex flex-col sm:flex-row gap-2 justify-center text-xs">
             {(search || statusFilter !== 'ALL' || stageFilter !== 'ALL') && (
-              <Button
-                variant="default"
-                size="xs"
-                onClick={() => {
-                  setSearch('');
-                  setStatusFilter('ALL');
-                  setStageFilter('ALL');
-                }}
-              >
+              <button onClick={() => { setSearch(''); setStatusFilter('ALL'); setStageFilter('ALL')}}>
                 Limpiar filtros
-              </Button>
+              </button>
             )}
 
-            <Button
-              color="forest"
-              size="xs"
-              leftSection={<Plus size={14} />}
-              onClick={() => navigate(routes.app.createProject)}
-            >
-              Crear nuevo proyecto
-            </Button>
+            <button color="forest" className='flex justify-evenly items-center h-8 w-45 rounded-md cursor-pointer text-white bg-forest hover:bg-forest-dark shadow-sm self-start sm:self-auto' onClick={() => navigate(routes.app.createProject)}>
+              <Plus size={14} /> Crear nuevo proyecto
+            </button>
           </div>
         </div>
       ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onDeleteRequest={(proj) => setProjectToDelete(proj)}
-            />
+            <ProjectCard key={project.id} project={project} onDeleteRequest={(proj) => setProjectToDelete(proj)}/>
           ))}
         </div>
       ) : (

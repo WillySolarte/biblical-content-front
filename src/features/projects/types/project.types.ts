@@ -1,5 +1,5 @@
 import type z from "zod";
-import type { CreateProjectFormSchema } from "../schemas/project.schema";
+import type { CompleteProjectSchema, CreateProjectFormSchema } from "../schemas/project.schema";
 
 export type ProjectStatus =
   | 'DRAFT'
@@ -105,3 +105,4 @@ export interface BibleVersion {
 //Propios
 
 export type TCreateProjectForm = z.infer<typeof CreateProjectFormSchema>
+export type TProject = z.infer<typeof CompleteProjectSchema>

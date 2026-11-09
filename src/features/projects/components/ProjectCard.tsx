@@ -1,14 +1,11 @@
-import { Card, Image, Progress, Menu, ActionIcon, Button } from '@mantine/core';
-import { 
-  MoreVertical, 
-  ExternalLink, 
-  Trash2, 
-  Edit3, 
-  BookOpen, 
-  Clock, 
-  Layers
-} from 'lucide-react';
+//React
+
+//Libraries
+import { Progress, Menu, ActionIcon, Button } from '@mantine/core';
+import { MoreVertical, ExternalLink, Trash2, Edit3, BookOpen, Clock, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+//My resources
+
 import type { Project } from '../types/project.types';
 import ProjectStatusBadge from './ProjectStatusBadge';
 import ProductionStageBadge from './ProductionStageBadge';
@@ -34,36 +31,16 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
   });
 
   return (
-    <Card 
-      shadow="sm" 
-      padding="lg" 
-      radius="lg" 
-      withBorder 
-      className="bg-white hover:shadow-md transition-all duration-200 border-border-warm flex flex-col justify-between group"
-    >
+    <div className="bg-white hover:shadow-md transition-all duration-200 border-border-warm flex flex-col justify-between group rounded-md p-4">
       <div>
         {/* Cover Image or Editorial Header */}
-        <div className="relative -mx-5 -mt-5 mb-4 overflow-hidden rounded-t-lg bg-ivory h-40">
-          {project.coverImage ? (
-            <Image
-              src={project.coverImage}
-              alt={project.title}
-              h={160}
-              fallbackSrc="https://placehold.co/600x400/263B35/D6B77A?text=Biblia+Studio"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-linear-to-br from-forest to-forest-dark text-white">
-              <BookOpen className="w-8 h-8 text-gold mb-2 opacity-80" />
-              <p className="font-editorial text-sm tracking-wide text-ivory text-center font-medium line-clamp-1">
-                {project.bibleVersion} • {project.passages[0]?.book || 'Escrituras'}
-              </p>
-            </div>
-          )}
+        <div className="relative overflow-hidden rounded-t-lg h-10">
+          
 
           {/* Badges on top of cover */}
-          <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
+          <div className="absolute top-3 flex gap-1.5 flex-wrap">
             <ProjectStatusBadge status={project.status} size="sm" />
+            
           </div>
 
           <div className="absolute top-3 right-3">
@@ -82,26 +59,16 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
               </Menu.Target>
 
               <Menu.Dropdown>
-                <Menu.Item 
-                  leftSection={<ExternalLink size={14} />}
-                  onClick={() => navigate(getProjectDetailUrl(project.id))}
-                >
+                <Menu.Item leftSection={<ExternalLink size={14} />} onClick={() => navigate(getProjectDetailUrl(project.id))}>
                   Abrir estudio
                 </Menu.Item>
                 {onEditRequest && (
-                  <Menu.Item 
-                    leftSection={<Edit3 size={14} />}
-                    onClick={() => onEditRequest(project)}
-                  >
+                  <Menu.Item leftSection={<Edit3 size={14} />} onClick={() => onEditRequest(project)}>
                     Editar datos
                   </Menu.Item>
                 )}
                 <Menu.Divider />
-                <Menu.Item 
-                  color="red" 
-                  leftSection={<Trash2 size={14} />}
-                  onClick={() => onDeleteRequest(project)}
-                >
+                <Menu.Item color="red" leftSection={<Trash2 size={14} />} onClick={() => onDeleteRequest(project)}>
                   Eliminar proyecto
                 </Menu.Item>
               </Menu.Dropdown>
@@ -115,7 +82,7 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
             <span className="px-2 py-0.5 rounded bg-ivory-light border border-border-warm text-forest">
               {project.bibleVersion}
             </span>
-            <span className="flex items-center gap-1 font-serif text-forest-light font-medium truncate max-w-[200px]">
+            <span className="flex items-center gap-1 font-serif text-forest-light font-medium truncate max-w-50">
               <BookOpen size={12} className="text-gold shrink-0" />
               {passageSummary}
             </span>
@@ -128,7 +95,7 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
             {project.title}
           </h3>
 
-          <p className="text-xs text-charcoal-muted line-clamp-2 leading-relaxed min-h-[32px]">
+          <p className="text-xs text-charcoal-muted line-clamp-2 leading-relaxed min-h-8">
             {project.description || 'Sin descripción adicional para este proyecto de contenido bíblico.'}
           </p>
         </div>
@@ -170,6 +137,6 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
           </Button>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }

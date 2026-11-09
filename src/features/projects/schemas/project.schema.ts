@@ -38,4 +38,26 @@ export const CreateProjectFormSchema = z.object({
 
   description: z.string().nullable().optional(),
 
+}).strict()
+
+//Project complete schema
+
+
+export const CompleteProjectSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().nullable().optional(),
+  status: z.enum(['DRAFT', 'ACTIVE', 'PAUSED', 'COMPLETED', 'PUBLISHED', 'ARCHIVED']),
+  productionStage: z.enum(['BIBLE_SELECTION', 'CONTENT_GENERATION', 'CONTENT_REVIEW', 'IMAGE_PRODUCTION', 'AUDIO_PRODUCTION', 'VIDEO_PRODUCTION', 'FINAL_REVIEW', 'EXPORT', 'DONE']),
+  userId: z.string(),
+  bibleVersionCode: z.string().nullable().optional(),
+  bibleVersionName: z.string().nullable().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string()
+}).strict()
+
+export const CompleteProjectsSchemaResponse = z.object({
+  status: z.number(),
+  message: z.string(),
+  data: z.array(CompleteProjectSchema)
 })
