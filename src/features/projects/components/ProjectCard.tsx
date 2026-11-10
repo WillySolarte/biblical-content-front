@@ -2,33 +2,29 @@
 
 //Libraries
 import { Progress, Menu, ActionIcon, Button } from '@mantine/core';
-import { MoreVertical, ExternalLink, Trash2, Edit3, BookOpen, Clock, Layers } from 'lucide-react';
+import { MoreVertical, ExternalLink, Trash2, BookOpen, Clock, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 //My resources
 
-import type { Project } from '../types/project.types';
+import type { TProject } from '../types/project.types';
 import ProjectStatusBadge from './ProjectStatusBadge';
 import ProductionStageBadge from './ProductionStageBadge';
 import { getProjectDetailUrl } from '@/common/constants/routes';
+import { formatDateLong } from '@/common/functions/dateFunctions';
+import { calculateProjectProgress } from '@/common/functions/projectProgressData';
 
 interface ProjectCardProps {
-  project: Project;
-  onDeleteRequest: (project: Project) => void;
-  onEditRequest?: (project: Project) => void;
+  project: TProject;
+  
 }
 
-export default function ProjectCard({ project, onDeleteRequest, onEditRequest }: ProjectCardProps) {
+export default function ProjectCard({ project }: ProjectCardProps) {
   const navigate = useNavigate();
-
+  
   const passageSummary = project.passages.length > 0
-    ? project.passages.map(p => `${p.book} ${p.chapter}:${p.verseStart}${p.verseEnd > p.verseStart ? `-${p.verseEnd}` : ''}`).join(', ')
-    : 'Sin pasaje asignado';
-
-  const formattedDate = new Date(project.updatedAt).toLocaleDateString('es-ES', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  });
+    ? project.passages.map(p => `${p.bookName} ${p.startChapter}:${p.startVerse}${p.endVerse > p.startVerse ? `-${p.endVerse}` : ''}`).join(', ')
+    : 'Sin pasaje asignado';  
+  
 
   return (
     <div className="bg-white hover:shadow-md transition-all duration-200 border-border-warm flex flex-col justify-between group rounded-md p-4">
@@ -62,13 +58,9 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
                 <Menu.Item leftSection={<ExternalLink size={14} />} onClick={() => navigate(getProjectDetailUrl(project.id))}>
                   Abrir estudio
                 </Menu.Item>
-                {onEditRequest && (
-                  <Menu.Item leftSection={<Edit3 size={14} />} onClick={() => onEditRequest(project)}>
-                    Editar datos
-                  </Menu.Item>
-                )}
+                
                 <Menu.Divider />
-                <Menu.Item color="red" leftSection={<Trash2 size={14} />} onClick={() => onDeleteRequest(project)}>
+                <Menu.Item color="red" leftSection={<Trash2 size={14} />}>
                   Eliminar proyecto
                 </Menu.Item>
               </Menu.Dropdown>
@@ -80,7 +72,7 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
         <div className="space-y-3">
           <div className="flex items-center gap-2 text-xs text-charcoal-muted font-medium">
             <span className="px-2 py-0.5 rounded bg-ivory-light border border-border-warm text-forest">
-              {project.bibleVersion}
+              {project.bibleVersionName || 'No definido'}
             </span>
             <span className="flex items-center gap-1 font-serif text-forest-light font-medium truncate max-w-50">
               <BookOpen size={12} className="text-gold shrink-0" />
@@ -92,7 +84,7 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
             onClick={() => navigate(getProjectDetailUrl(project.id))}
             className="font-editorial text-lg font-semibold text-charcoal line-clamp-1 hover:text-forest cursor-pointer transition-colors"
           >
-            {project.title}
+            {project.name}
           </h3>
 
           <p className="text-xs text-charcoal-muted line-clamp-2 leading-relaxed min-h-8">
@@ -106,13 +98,13 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 text-charcoal-muted">
             <Layers size={13} className="text-forest" />
-            <ProductionStageBadge stage={project.stage} size="xs" />
+            <ProductionStageBadge stage={project.productionStage} size="xs" />
           </div>
-          <span className="font-semibold text-forest text-xs">{project.progress}%</span>
+          <span className="font-semibold text-forest text-xs">{calculateProjectProgress(project.productionStage)}%</span>
         </div>
 
         <Progress 
-          value={project.progress} 
+          value={calculateProjectProgress(project.productionStage)} 
           size="sm" 
           color="forest" 
           radius="xl" 
@@ -122,17 +114,10 @@ export default function ProjectCard({ project, onDeleteRequest, onEditRequest }:
         <div className="flex items-center justify-between pt-1">
           <span className="text-[11px] text-muted flex items-center gap-1">
             <Clock size={11} />
-            {formattedDate}
+            {formatDateLong(project.createdAt)}
           </span>
 
-          <Button
-            size="xs"
-            variant="light"
-            color="forest"
-            rightSection={<ExternalLink size={12} />}
-            onClick={() => navigate(getProjectDetailUrl(project.id))}
-            className="hover:bg-forest hover:text-white transition-colors"
-          >
+          <Button size="xs" variant="light" color="forest" rightSection={<ExternalLink size={12} />} onClick={() => navigate(getProjectDetailUrl(project.id))} className="hover:bg-forest hover:text-white transition-colors">
             Abrir
           </Button>
         </div>

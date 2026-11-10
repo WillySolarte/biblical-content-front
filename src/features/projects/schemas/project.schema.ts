@@ -42,6 +42,20 @@ export const CreateProjectFormSchema = z.object({
 
 //Project complete schema
 
+export const ProjectPassageSchema = z.object({
+  id: z.string(),
+  projectId: z.string(),
+  bookId: z.string().max(100),
+  bookName: z.string().max(100),
+  startChapter: z.number().int(),
+  startVerse: z.number().int(),
+  endChapter: z.number().int(),
+  endVerse: z.number().int(),
+  textSnapshot: z.string(),
+  order: z.number().int(),
+  createdAt: z.string(), 
+}).strict();
+
 
 export const CompleteProjectSchema = z.object({
   id: z.string(),
@@ -53,7 +67,8 @@ export const CompleteProjectSchema = z.object({
   bibleVersionCode: z.string().nullable().optional(),
   bibleVersionName: z.string().nullable().optional(),
   createdAt: z.string(),
-  updatedAt: z.string()
+  updatedAt: z.string(),
+  passages: z.array(ProjectPassageSchema)
 }).strict()
 
 export const CompleteProjectsSchemaResponse = z.object({

@@ -1,18 +1,24 @@
+//React
+
+
+//Libraries
 import { Table, Progress, ActionIcon, Menu, Button } from '@mantine/core';
-import { MoreVertical, ExternalLink, Trash2, Edit3, BookOpen, Clock } from 'lucide-react';
+import { MoreVertical, ExternalLink, Trash2, BookOpen, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import type { Project } from '../types/project.types';
+//My resources
+import type { TProject } from '../types/project.types';
 import ProjectStatusBadge from './ProjectStatusBadge';
 import ProductionStageBadge from './ProductionStageBadge';
 import { getProjectDetailUrl } from '@/common/constants/routes';
+import { calculateProjectProgress } from '@/common/functions/projectProgressData';
+import { formatDateLong } from '@/common/functions/dateFunctions';
 
 interface ProjectTableProps {
-  projects: Project[];
-  onDeleteRequest: (project: Project) => void;
-  onEditRequest?: (project: Project) => void;
+  projects: TProject[];
+  
 }
 
-export default function ProjectTable({ projects, onDeleteRequest, onEditRequest }: ProjectTableProps) {
+export default function ProjectTable({ projects }: ProjectTableProps) {
   const navigate = useNavigate();
 
   return (
@@ -33,24 +39,18 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
           <Table.Tbody>
             {projects.map((project) => {
               const passageSummary = project.passages.length > 0
-                ? project.passages.map(p => `${p.book} ${p.chapter}:${p.verseStart}${p.verseEnd > p.verseStart ? `-${p.verseEnd}` : ''}`).join(', ')
+                ? project.passages.map(p => `${p.bookName} ${p.startChapter}:${p.startVerse}${p.endVerse > p.startVerse ? `-${p.endVerse}` : ''}`).join(', ')
                 : '—';
-
-              const formattedDate = new Date(project.updatedAt).toLocaleDateString('es-ES', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-              });
 
               return (
                 <Table.Tr key={project.id} className="hover:bg-ivory-light/80 transition-colors">
                   <Table.Td>
-                    <div className="max-w-[260px]">
+                    <div className="max-w-65">
                       <span 
                         onClick={() => navigate(getProjectDetailUrl(project.id))}
                         className="font-editorial text-sm font-semibold text-charcoal hover:text-forest cursor-pointer block truncate"
                       >
-                        {project.title}
+                        {project.name}
                       </span>
                       <span className="text-xs text-slate-muted line-clamp-1">
                         {project.description || 'Sin descripción'}
@@ -61,7 +61,7 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
                   <Table.Td>
                     <div className="flex flex-col gap-0.5">
                       <span className="text-xs font-semibold text-forest">
-                        {project.bibleVersion}
+                        {project.bibleVersionName || 'No definido'}
                       </span>
                       <span className="text-xs text-charcoal-muted font-serif flex items-center gap-1">
                         <BookOpen size={11} className="text-gold" />
@@ -75,34 +75,28 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
                   </Table.Td>
 
                   <Table.Td>
-                    <ProductionStageBadge stage={project.stage} size="xs" />
+                    <ProductionStageBadge stage={project.productionStage} size="xs" />
                   </Table.Td>
 
                   <Table.Td>
                     <div className="w-28 space-y-1">
                       <div className="flex justify-between text-[11px] text-charcoal-muted">
-                        <span>{project.progress}%</span>
+                        <span>{calculateProjectProgress(project.productionStage)}%</span>
                       </div>
-                      <Progress value={project.progress} size="xs" color="forest" radius="xl" />
+                      <Progress value={calculateProjectProgress(project.productionStage)} size="xs" color="forest" radius="xl" />
                     </div>
                   </Table.Td>
 
                   <Table.Td>
                     <span className="text-xs text-slate-muted flex items-center gap-1">
                       <Clock size={11} />
-                      {formattedDate}
+                      {formatDateLong(project.createdAt)}
                     </span>
                   </Table.Td>
 
                   <Table.Td className="text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <Button
-                        size="xs"
-                        variant="subtle"
-                        color="forest"
-                        rightSection={<ExternalLink size={12} />}
-                        onClick={() => navigate(getProjectDetailUrl(project.id))}
-                      >
+                      <Button size="xs" variant="subtle" color="forest" rightSection={<ExternalLink size={12} />} onClick={() => navigate(getProjectDetailUrl(project.id))}>
                         Abrir
                       </Button>
 
@@ -113,19 +107,9 @@ export default function ProjectTable({ projects, onDeleteRequest, onEditRequest 
                           </ActionIcon>
                         </Menu.Target>
                         <Menu.Dropdown>
-                          {onEditRequest && (
-                            <Menu.Item 
-                              leftSection={<Edit3 size={14} />}
-                              onClick={() => onEditRequest(project)}
-                            >
-                              Editar
-                            </Menu.Item>
-                          )}
-                          <Menu.Item 
-                            color="red" 
-                            leftSection={<Trash2 size={14} />}
-                            onClick={() => onDeleteRequest(project)}
-                          >
+                          
+                          
+                          <Menu.Item color="red" leftSection={<Trash2 size={14} />}>
                             Eliminar
                           </Menu.Item>
                         </Menu.Dropdown>

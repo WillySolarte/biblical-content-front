@@ -12,11 +12,10 @@ import { routes } from '@/common/constants/routes';
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/common/constants/query-keys';
 import { getProjects } from '../services/project.service';
-import Spinner from '@/common/components/spinner/Spinner';
 
 export default function ProjectsListView() {
   const navigate = useNavigate();
-  const { projects, filteredProjects, loading, search, setSearch, statusFilter, setStatusFilter, stageFilter, setStageFilter, sortBy, setSortBy, viewMode, setViewMode,
+  const { projects, filteredProjects, search, setSearch, statusFilter, setStatusFilter, stageFilter, setStageFilter, sortBy, setSortBy, viewMode, setViewMode,
     deleteProject,
   } = useProjects();
 
@@ -29,11 +28,7 @@ export default function ProjectsListView() {
 
   });
   if (isError) console.error(error)
-
-  if (isLoading) {
-    return <Spinner />
-  }
-
+    
   
 
   return (
@@ -71,7 +66,7 @@ export default function ProjectsListView() {
       />
 
       {/* Projects Display */}
-      {loading ? (
+      {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="bg-white p-5 rounded-2xl border border-border-warm space-y-4">
@@ -83,7 +78,7 @@ export default function ProjectsListView() {
             </div>
           ))}
         </div>
-      ) : filteredProjects.length === 0 ? (
+      ) : data?.length === 0 ? (
         <div className="bg-white rounded-2xl border border-border-warm p-12 text-center max-w-md mx-auto space-y-4 shadow-sm">
           <div className="w-14 h-14 rounded-full bg-ivory-light text-forest flex items-center justify-center mx-auto border border-border-warm">
             <Layers size={26} className="text-gold" />
@@ -111,15 +106,12 @@ export default function ProjectsListView() {
         </div>
       ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} onDeleteRequest={(proj) => setProjectToDelete(proj)}/>
+          {(data ?? []).map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       ) : (
-        <ProjectTable
-          projects={filteredProjects}
-          onDeleteRequest={(proj) => setProjectToDelete(proj)}
-        />
+        <ProjectTable projects={data || []} />
       )}
 
       {/* Delete Confirmation Modal */}

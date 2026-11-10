@@ -1,12 +1,12 @@
 import { Badge } from '@mantine/core';
-import type { ProjectStatus } from '../types/project.types';
+import type { TProject } from '../types/project.types';
 
 interface ProjectStatusBadgeProps {
-  status: ProjectStatus;
+  status: TProject['status'];
   size?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
-const STATUS_CONFIG: Record<ProjectStatus, { label: string; color: string; variant: 'light' | 'filled' | 'outline' }> = {
+const STATUS_CONFIG: Record<TProject['status'], { label: string; color: string; variant: 'light' | 'filled' | 'outline' }> = {
   DRAFT: {
     label: 'Borrador',
     color: 'gray',
@@ -43,13 +43,7 @@ export default function ProjectStatusBadge({ status, size = 'sm' }: ProjectStatu
   const config = STATUS_CONFIG[status] || { label: status, color: 'gray', variant: 'light' };
 
   return (
-    <Badge
-      color={config.color}
-      variant={config.variant}
-      size={size}
-      radius="sm"
-      className="font-medium tracking-wide uppercase text-[11px]"
-    >
+    <Badge color={config.color} variant={config.variant} size={size} radius="sm" className="font-medium tracking-wide uppercase text-[11px]">
       {config.label}
     </Badge>
   );
