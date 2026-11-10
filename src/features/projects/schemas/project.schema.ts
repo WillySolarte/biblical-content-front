@@ -74,5 +74,10 @@ export const CompleteProjectSchema = z.object({
 export const CompleteProjectsSchemaResponse = z.object({
   status: z.number(),
   message: z.string(),
-  data: z.array(CompleteProjectSchema)
-})
+  data: z.object({
+    projects: z.array(CompleteProjectSchema),
+    total: z.number(),
+    totalPages: z.number(),
+    totalProjects: z.number()
+  })
+}).strict()

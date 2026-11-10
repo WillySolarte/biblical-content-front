@@ -1,15 +1,15 @@
 import { TextInput, Select, ActionIcon, Tooltip } from '@mantine/core';
 import { Search, LayoutGrid, List, X } from 'lucide-react';
+import type { TProject } from '../types/project.types';
 
 interface ProjectFilterBarProps {
   search: string;
   onSearchChange: (value: string) => void;
   statusFilter: string;
-  onStatusFilterChange: (value: string) => void;
+  onStatusFilterChange: (value: TProject['status'] | '') => void;
   stageFilter: string;
-  onStageFilterChange: (value: string) => void;
-  sortBy: 'recent' | 'name' | 'progress';
-  onSortByChange: (value: 'recent' | 'name' | 'progress') => void;
+  onStageFilterChange: (value: TProject['productionStage'] | '') => void;
+  
   viewMode: 'grid' | 'table';
   onViewModeChange: (value: 'grid' | 'table') => void;
   totalCount: number;
@@ -17,7 +17,7 @@ interface ProjectFilterBarProps {
 }
 
 const STATUS_OPTIONS = [
-  { value: 'ALL', label: 'Todos los estados' },
+  { value: '', label: 'Todos los estados' },
   { value: 'ACTIVE', label: 'Activos' },
   { value: 'DRAFT', label: 'Borradores' },
   { value: 'COMPLETED', label: 'Completados' },
@@ -27,7 +27,7 @@ const STATUS_OPTIONS = [
 ];
 
 const STAGE_OPTIONS = [
-  { value: 'ALL', label: 'Todas las etapas' },
+  { value: '', label: 'Todas las etapas' },
   { value: 'BIBLE_SELECTION', label: '1. Selección Bíblica' },
   { value: 'CONTENT_GENERATION', label: '2. Análisis & IA' },
   { value: 'CONTENT_REVIEW', label: '3. Guión & Storyboard' },
@@ -39,11 +39,7 @@ const STAGE_OPTIONS = [
   { value: 'DONE', label: 'Listo / Completado' },
 ];
 
-const SORT_OPTIONS = [
-  { value: 'recent', label: 'Más recientes' },
-  { value: 'name', label: 'Nombre (A-Z)' },
-  { value: 'progress', label: 'Mayor progreso' },
-];
+
 
 export default function ProjectFilterBar({
   search,
@@ -52,8 +48,7 @@ export default function ProjectFilterBar({
   onStatusFilterChange,
   stageFilter,
   onStageFilterChange,
-  sortBy,
-  onSortByChange,
+  
   viewMode,
   onViewModeChange,
   totalCount,
@@ -63,15 +58,15 @@ export default function ProjectFilterBar({
 
   const clearFilters = () => {
     onSearchChange('');
-    onStatusFilterChange('ALL');
-    onStageFilterChange('ALL');
+    onStatusFilterChange('');
+    onStageFilterChange('');
   };
 
   return (
     <div className="bg-white p-4 rounded-xl border border-border-warm shadow-sm space-y-3">
       <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
         {/* Search */}
-        <div className="flex-1 min-w-[240px]">
+        <div className="flex-1 min-w-60">
           <TextInput
             placeholder="Buscar por nombre, libro o pasaje..."
             leftSection={<Search size={16} className="text-muted" />}
@@ -93,7 +88,7 @@ export default function ProjectFilterBar({
             placeholder="Estado"
             data={STATUS_OPTIONS}
             value={statusFilter}
-            onChange={(val) => onStatusFilterChange(val || 'ALL')}
+            onChange={(val) => onStatusFilterChange((val || '') as TProject['status'] | '')}
             className="w-40"
             size="sm"
           />
@@ -102,19 +97,12 @@ export default function ProjectFilterBar({
             placeholder="Etapa"
             data={STAGE_OPTIONS}
             value={stageFilter}
-            onChange={(val) => onStageFilterChange(val || 'ALL')}
+            onChange={(val) => onStageFilterChange((val || '') as TProject['productionStage'] | '')}
             className="w-48"
             size="sm"
           />
 
-          <Select
-            placeholder="Ordenar"
-            data={SORT_OPTIONS}
-            value={sortBy}
-            onChange={(val) => onSortByChange((val as 'recent' | 'name' | 'progress') || 'recent')}
-            className="w-36"
-            size="sm"
-          />
+          
 
           {/* View Toggle */}
           <div className="border-l border-border-warm pl-2 flex items-center gap-1">

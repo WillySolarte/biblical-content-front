@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Skeleton } from '@mantine/core';
+import { Pagination, Skeleton } from '@mantine/core';
 import { Plus, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useProjects } from '../hooks/useProjects';
@@ -7,23 +7,37 @@ import ProjectCard from '../components/ProjectCard';
 import ProjectTable from '../components/ProjectTable';
 import ProjectFilterBar from '../components/ProjectFilterBar';
 import DeleteProjectModal from '../components/DeleteProjectModal';
-import type { Project } from '../types/project.types';
+import type { Project, ProjectFilters, TProject } from '../types/project.types';
 import { routes } from '@/common/constants/routes';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/common/constants/query-keys';
 import { getProjects } from '../services/project.service';
 
 export default function ProjectsListView() {
+
   const navigate = useNavigate();
-  const { projects, filteredProjects, search, setSearch, statusFilter, setStatusFilter, stageFilter, setStageFilter, sortBy, setSortBy, viewMode, setViewMode,
+  const [searchInput, setSearchInput] = useState('');
+  const [status, setStatus] = useState<TProject['status'] | ''>('');
+  const [productionStage, setProductionStage] = useState<TProject['productionStage'] | ''>('');
+  const [page, setPage] = useState(1);
+
+  const { viewMode, setViewMode,
     deleteProject,
   } = useProjects();
 
   const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
 
+  const filters: ProjectFilters = {
+    search: searchInput,
+    status,
+    productionStage,
+    page,
+  };
+
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: queryKeys.projects.all,
-    queryFn: getProjects,
+    queryKey: queryKeys.projects.list(filters),
+    queryFn: () => getProjects(filters),
+    placeholderData: keepPreviousData,
     retry: 1,
 
   });
@@ -51,18 +65,16 @@ export default function ProjectsListView() {
 
       {/* Filter and Search Bar */}
       <ProjectFilterBar
-        search={search}
-        onSearchChange={setSearch}
-        statusFilter={statusFilter}
-        onStatusFilterChange={setStatusFilter}
-        stageFilter={stageFilter}
-        onStageFilterChange={setStageFilter}
-        sortBy={sortBy}
-        onSortByChange={setSortBy}
-        viewMode={viewMode}
+        search={searchInput}
+        onSearchChange={setSearchInput}
+        statusFilter={status}
+        onStatusFilterChange={setStatus}
+        stageFilter={productionStage}
+        onStageFilterChange={setProductionStage}
+        viewMode={viewMode}      
         onViewModeChange={setViewMode}
-        totalCount={projects.length}
-        filteredCount={filteredProjects.length}
+        totalCount={data?.totalProjects || 0}
+        filteredCount={data?.projects.length || 0}
       />
 
       {/* Projects Display */}
@@ -78,7 +90,7 @@ export default function ProjectsListView() {
             </div>
           ))}
         </div>
-      ) : data?.length === 0 ? (
+      ) : data?.projects.length === 0 ? (
         <div className="bg-white rounded-2xl border border-border-warm p-12 text-center max-w-md mx-auto space-y-4 shadow-sm">
           <div className="w-14 h-14 rounded-full bg-ivory-light text-forest flex items-center justify-center mx-auto border border-border-warm">
             <Layers size={26} className="text-gold" />
@@ -93,8 +105,8 @@ export default function ProjectsListView() {
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row gap-2 justify-center text-xs">
-            {(search || statusFilter !== 'ALL' || stageFilter !== 'ALL') && (
-              <button onClick={() => { setSearch(''); setStatusFilter('ALL'); setStageFilter('ALL')}}>
+            {(searchInput || status !== '' || productionStage !== '') && (
+              <button onClick={() => { setSearchInput(''); setStatus(''); setProductionStage('')}}>
                 Limpiar filtros
               </button>
             )}
@@ -106,12 +118,13 @@ export default function ProjectsListView() {
         </div>
       ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(data ?? []).map((project) => (
+          {(data?.projects ?? []).map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
+          <Pagination total={20} siblings={1} defaultValue={10} />
         </div>
       ) : (
-        <ProjectTable projects={data || []} />
+        <ProjectTable projects={data?.projects || []} />
       )}
 
       {/* Delete Confirmation Modal */}

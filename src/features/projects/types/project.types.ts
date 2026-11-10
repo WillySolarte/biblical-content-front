@@ -106,3 +106,9 @@ export interface BibleVersion {
 
 export type TCreateProjectForm = z.infer<typeof CreateProjectFormSchema>
 export type TProject = z.infer<typeof CompleteProjectSchema>
+export type ProjectFilters = {
+  search?: string;
+  status?: ProjectStatus | '';
+  productionStage?: ProductionStage | '';
+  page?: number;
+}
