@@ -6,7 +6,7 @@ import { MoreVertical, ExternalLink, Trash2, BookOpen, Clock, Layers } from 'luc
 import { useNavigate } from 'react-router-dom';
 //My resources
 
-import type { TProject } from '../types/project.types';
+import type { projectDataDelete, TProject } from '../types/project.types';
 import ProjectStatusBadge from './ProjectStatusBadge';
 import ProductionStageBadge from './ProductionStageBadge';
 import { getProjectDetailUrl } from '@/common/constants/routes';
@@ -15,17 +15,29 @@ import { calculateProjectProgress } from '@/common/functions/projectProgressData
 
 interface ProjectCardProps {
   project: TProject;
-  
+  open: () => void;
+  setProjectData: (projectData: projectDataDelete) => void;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, open, setProjectData }: ProjectCardProps) {
+
   const navigate = useNavigate();
+
+  const { id, name } = project;
+
+  function handleDeleteProject() {
+    setProjectData({ id, name });
+    open()
+    
+  }
+
+  
   
   const passageSummary = project.passages.length > 0
     ? project.passages.map(p => `${p.bookName} ${p.startChapter}:${p.startVerse}${p.endVerse > p.startVerse ? `-${p.endVerse}` : ''}`).join(', ')
     : 'Sin pasaje asignado';  
   
-
+  
   return (
     <div className="bg-white hover:shadow-md transition-all duration-200 border-border-warm flex flex-col justify-between group rounded-md p-4">
       <div>
@@ -60,7 +72,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 </Menu.Item>
                 
                 <Menu.Divider />
-                <Menu.Item color="red" leftSection={<Trash2 size={14} />}>
+                <Menu.Item onClick={handleDeleteProject} color="red" leftSection={<Trash2 size={14} />}>
                   Eliminar proyecto
                 </Menu.Item>
               </Menu.Dropdown>

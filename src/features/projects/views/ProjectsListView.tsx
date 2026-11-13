@@ -1,37 +1,50 @@
-import { useState } from 'react';
+//React
+
+//Libraries
 import { Pagination, Skeleton } from '@mantine/core';
 import { Plus, Layers } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useDisclosure } from '@mantine/hooks';
+//My resources
+import { useState } from 'react';
 import { useProjects } from '../hooks/useProjects';
 import ProjectCard from '../components/ProjectCard';
 import ProjectTable from '../components/ProjectTable';
 import ProjectFilterBar from '../components/ProjectFilterBar';
 import DeleteProjectModal from '../components/DeleteProjectModal';
-import type { Project, ProjectFilters, TProject } from '../types/project.types';
+import type { projectDataDelete, ProjectFilters, TProject } from '../types/project.types';
 import { routes } from '@/common/constants/routes';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+
 import { queryKeys } from '@/common/constants/query-keys';
 import { getProjects } from '../services/project.service';
 
 export default function ProjectsListView() {
 
+  
+    
+  
+
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
   const [status, setStatus] = useState<TProject['status'] | ''>('');
   const [productionStage, setProductionStage] = useState<TProject['productionStage'] | ''>('');
-  const [page, setPage] = useState(1);
+  const [opened, { open, close }] = useDisclosure(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [projectData, setProjectData] = useState<projectDataDelete | null>(null)
 
-  const { viewMode, setViewMode,
-    deleteProject,
-  } = useProjects();
 
-  const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
+  const currentPage = Number(searchParams.get('page')) || 1;
+
+
+
+  const { viewMode, setViewMode } = useProjects();
 
   const filters: ProjectFilters = {
     search: searchInput,
     status,
     productionStage,
-    page,
+    page: currentPage,
   };
 
   const { data, isLoading, isError, error } = useQuery({
@@ -41,9 +54,31 @@ export default function ProjectsListView() {
     retry: 1,
 
   });
+
+  function handlePage(newPage: number) {
+    setSearchParams((prevParams) => {
+      prevParams.set('page', newPage.toString());
+      return prevParams;
+    });
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchInput(value);
+    if (currentPage !== 1) handlePage(1);
+  };
+
+  const handleStatusChange = (value: TProject['status'] | '') => {
+    setStatus(value);
+    if (currentPage !== 1) handlePage(1);
+  };
+
+  const handleStageChange = (value: TProject['productionStage'] | '') => {
+    setProductionStage(value);
+    if (currentPage !== 1) handlePage(1);
+  };
+
   if (isError) console.error(error)
-    
-  
+
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto py-2">
@@ -66,12 +101,12 @@ export default function ProjectsListView() {
       {/* Filter and Search Bar */}
       <ProjectFilterBar
         search={searchInput}
-        onSearchChange={setSearchInput}
+        onSearchChange={handleSearchChange}
         statusFilter={status}
-        onStatusFilterChange={setStatus}
+        onStatusFilterChange={handleStatusChange}
         stageFilter={productionStage}
-        onStageFilterChange={setProductionStage}
-        viewMode={viewMode}      
+        onStageFilterChange={handleStageChange}
+        viewMode={viewMode}
         onViewModeChange={setViewMode}
         totalCount={data?.totalProjects || 0}
         filteredCount={data?.projects.length || 0}
@@ -106,7 +141,7 @@ export default function ProjectsListView() {
 
           <div className="pt-2 flex flex-col sm:flex-row gap-2 justify-center text-xs">
             {(searchInput || status !== '' || productionStage !== '') && (
-              <button onClick={() => { setSearchInput(''); setStatus(''); setProductionStage('')}}>
+              <button onClick={() => { setSearchInput(''); setStatus(''); setProductionStage(''); handlePage(1) }}>
                 Limpiar filtros
               </button>
             )}
@@ -119,25 +154,31 @@ export default function ProjectsListView() {
       ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {(data?.projects ?? []).map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            
+            <ProjectCard key={project.id} project={project} open={open} setProjectData={() => setProjectData}/>
+            
           ))}
-          <Pagination total={20} siblings={1} defaultValue={10} />
+          
         </div>
       ) : (
         <ProjectTable projects={data?.projects || []} />
       )}
+      {/* Paginación controlada y fuera del grid para que aplique a tabla y tarjetas */}
+      {(data?.totalPages ?? 0) > 1 && (
+        <div className="flex justify-center pt-4">
+          <Pagination value={currentPage} onChange={handlePage} total={data?.totalPages || 0} siblings={1} />
+        </div>
+      )}
 
       {/* Delete Confirmation Modal */}
       <DeleteProjectModal
-        opened={!!projectToDelete}
-        onClose={() => setProjectToDelete(null)}
-        project={projectToDelete}
-        onConfirm={() => {
-          if (projectToDelete) {
-            deleteProject(projectToDelete.id);
-          }
-        }}
+        opened={opened}
+        onClose={close}
+        projectData={projectData}
+        
       />
     </div>
   );
 }
+
+

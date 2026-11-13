@@ -112,3 +112,5 @@ export type ProjectFilters = {
   productionStage?: ProductionStage | '';
   page?: number;
 }
+
+export type projectDataDelete = Pick<TProject, "id" | "name">
