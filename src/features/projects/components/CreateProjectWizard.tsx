@@ -65,6 +65,10 @@ export default function CreateProjectWizard() {
                 required
                 size="md"
                 {...register('name')}
+                spellCheck
+                autoCorrect="on"
+                autoCapitalize="sentences"
+                lang="es"
                 error={errors.name?.message}
               />
 
@@ -73,6 +77,10 @@ export default function CreateProjectWizard() {
                 placeholder="Describe brevemente la intención pedagógica o devocional de este contenido..."
                 rows={3}
                 {...register('description')}
+                spellCheck
+                autoCorrect="on"
+                autoCapitalize="sentences"
+                lang="es"
                 error={errors.description?.message}
               />
             </div>
