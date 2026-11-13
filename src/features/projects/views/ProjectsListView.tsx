@@ -5,10 +5,10 @@ import { Pagination, Skeleton } from '@mantine/core';
 import { Plus, Layers } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { useDisclosure } from '@mantine/hooks';
 //My resources
 import { useState } from 'react';
 import { useProjects } from '../hooks/useProjects';
+import { useDeleteProject } from '../hooks/useDeleteProject';
 import ProjectCard from '../components/ProjectCard';
 import ProjectTable from '../components/ProjectTable';
 import ProjectFilterBar from '../components/ProjectFilterBar';
@@ -29,9 +29,9 @@ export default function ProjectsListView() {
   const [searchInput, setSearchInput] = useState('');
   const [status, setStatus] = useState<TProject['status'] | ''>('');
   const [productionStage, setProductionStage] = useState<TProject['productionStage'] | ''>('');
-  const [opened, { open, close }] = useDisclosure(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [projectData, setProjectData] = useState<projectDataDelete | null>(null)
+  const [projectToDelete, setProjectToDelete] = useState<projectDataDelete | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 
   const currentPage = Number(searchParams.get('page')) || 1;
@@ -39,6 +39,7 @@ export default function ProjectsListView() {
 
 
   const { viewMode, setViewMode } = useProjects();
+  const { mutate: removeProject, isPending: isDeleting } = useDeleteProject();
 
   const filters: ProjectFilters = {
     search: searchInput,
@@ -75,6 +76,22 @@ export default function ProjectsListView() {
   const handleStageChange = (value: TProject['productionStage'] | '') => {
     setProductionStage(value);
     if (currentPage !== 1) handlePage(1);
+  };
+
+  const handleRequestDelete = (project: projectDataDelete) => {
+    setProjectToDelete(project);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = (project: projectDataDelete) => {
+    removeProject(project, {
+      onSuccess: () => {
+        if ((data?.projects.length ?? 0) === 1 && currentPage > 1) {
+          handlePage(currentPage - 1);
+        }
+        setIsDeleteModalOpen(false);
+      },
+    });
   };
 
   if (isError) console.error(error)
@@ -155,13 +172,13 @@ export default function ProjectsListView() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {(data?.projects ?? []).map((project) => (
             
-            <ProjectCard key={project.id} project={project} open={open} setProjectData={() => setProjectData}/>
+            <ProjectCard key={project.id} project={project} onRequestDelete={handleRequestDelete}/>
             
           ))}
           
         </div>
       ) : (
-        <ProjectTable projects={data?.projects || []} />
+        <ProjectTable projects={data?.projects || []} onRequestDelete={handleRequestDelete} />
       )}
       {/* Paginación controlada y fuera del grid para que aplique a tabla y tarjetas */}
       {(data?.totalPages ?? 0) > 1 && (
@@ -172,10 +189,12 @@ export default function ProjectsListView() {
 
       {/* Delete Confirmation Modal */}
       <DeleteProjectModal
-        opened={opened}
-        onClose={close}
-        projectData={projectData}
-        
+        opened={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onExitTransitionEnd={() => setProjectToDelete(null)}
+        projectData={projectToDelete}
+        onConfirm={handleConfirmDelete}
+        isDeleting={isDeleting}
       />
     </div>
   );

@@ -15,20 +15,17 @@ import { calculateProjectProgress } from '@/common/functions/projectProgressData
 
 interface ProjectCardProps {
   project: TProject;
-  open: () => void;
-  setProjectData: (projectData: projectDataDelete) => void;
+  onRequestDelete: (projectData: projectDataDelete) => void;
 }
 
-export default function ProjectCard({ project, open, setProjectData }: ProjectCardProps) {
+export default function ProjectCard({ project, onRequestDelete }: ProjectCardProps) {
 
   const navigate = useNavigate();
 
   const { id, name } = project;
 
   function handleDeleteProject() {
-    setProjectData({ id, name });
-    open()
-    
+    onRequestDelete({ id, name });
   }
 
   

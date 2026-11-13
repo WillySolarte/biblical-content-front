@@ -1,4 +1,4 @@
-import { apiGetNestedData, apiPost } from "@/config/api-wrapper";
+import { apiDelete, apiGetNestedData, apiPost } from "@/config/api-wrapper";
 import { BibleVersionsApiResponseSchema } from "../schemas/bible-version.schema";
 import type { ProjectFilters, TCreateProjectForm } from "../types/project.types";
 import { StandarResponseSchema } from "@/common/schemas/general.schema";
@@ -12,6 +12,11 @@ export async function getApiBibleVersions() {
 export function createInitProject(projectFormData: TCreateProjectForm){
     const url:string = '/project';
     return apiPost(url, projectFormData, StandarResponseSchema);
+}
+
+export function deleteProject(id: string) {
+  const url = `/project/${id}`;
+  return apiDelete(url);
 }
 
 export function getProjects(filters?: ProjectFilters) {

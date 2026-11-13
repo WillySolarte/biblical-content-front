@@ -6,7 +6,7 @@ import { Table, Progress, ActionIcon, Menu, Button } from '@mantine/core';
 import { MoreVertical, ExternalLink, Trash2, BookOpen, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 //My resources
-import type { TProject } from '../types/project.types';
+import type { projectDataDelete, TProject } from '../types/project.types';
 import ProjectStatusBadge from './ProjectStatusBadge';
 import ProductionStageBadge from './ProductionStageBadge';
 import { getProjectDetailUrl } from '@/common/constants/routes';
@@ -15,10 +15,11 @@ import { formatDateLong } from '@/common/functions/dateFunctions';
 
 interface ProjectTableProps {
   projects: TProject[];
-  
+  onRequestDelete: (projectData: projectDataDelete) => void;
 }
 
-export default function ProjectTable({ projects }: ProjectTableProps) {
+export default function ProjectTable({ projects, onRequestDelete }: ProjectTableProps) {
+
   const navigate = useNavigate();
 
   return (
@@ -109,7 +110,7 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
                         <Menu.Dropdown>
                           
                           
-                          <Menu.Item color="red" leftSection={<Trash2 size={14} />}>
+                          <Menu.Item onClick={() => onRequestDelete({ id: project.id, name: project.name })} color="red" leftSection={<Trash2 size={14} />}>
                             Eliminar
                           </Menu.Item>
                         </Menu.Dropdown>

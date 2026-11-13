@@ -5,17 +5,21 @@ import type { projectDataDelete } from '../types/project.types';
 interface DeleteProjectModalProps {
   opened: boolean;
   onClose: () => void;
-  projectData: projectDataDelete | null
+  projectData: projectDataDelete | null;
+  onConfirm: (projectData: projectDataDelete) => void;
+  isDeleting?: boolean;
+  onExitTransitionEnd?: () => void;
 }
 
-export default function DeleteProjectModal({ opened, onClose, projectData }: DeleteProjectModalProps) {
+export default function DeleteProjectModal({ opened, onClose, projectData, onConfirm, isDeleting = false, onExitTransitionEnd }: DeleteProjectModalProps) {
 
   function handleDelete(){
-    console.log(projectData)
+    if (!projectData) return;
+    onConfirm(projectData);
   }
 
   return (
-    <Modal opened={opened} onClose={onClose}
+    <Modal opened={opened} onClose={onClose} onExitTransitionEnd={onExitTransitionEnd}
       title={
         <div className="flex items-center gap-2 text-red-600 font-semibold font-editorial">
           <AlertTriangle size={20} />
@@ -36,10 +40,10 @@ export default function DeleteProjectModal({ opened, onClose, projectData }: Del
         </div>
 
         <Group justify="flex-end" mt="lg">
-          <Button variant="default" onClick={onClose}>
+          <Button variant="default" onClick={onClose} disabled={isDeleting}>
             Cancelar
           </Button>
-          <Button color="red" onClick={handleDelete}>
+          <Button color="red" onClick={handleDelete} loading={isDeleting}>
             Eliminar definitivamente
           </Button>
         </Group>

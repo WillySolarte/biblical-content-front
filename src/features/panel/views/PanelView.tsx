@@ -35,11 +35,10 @@ export default function PanelView() {
       <DeleteProjectModal
         opened={!!projectToDelete}
         onClose={() => setProjectToDelete(null)}
-        project={projectToDelete}
-        onConfirm={() => {
-          if (projectToDelete) {
-            deleteProject(projectToDelete.id);
-          }
+        projectData={projectToDelete ? { id: projectToDelete.id, name: projectToDelete.title } : null}
+        onConfirm={(projectData) => {
+          deleteProject(projectData.id);
+          setProjectToDelete(null);
         }}
       />
     </div>
