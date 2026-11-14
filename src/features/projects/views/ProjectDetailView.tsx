@@ -1,16 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Tabs, Button, Skeleton } from '@mantine/core';
-import { 
-  BookOpen, 
-  Layers, 
-  Image as ImageIcon, 
-  Mic, 
-  Film, 
-  Download, 
-  ArrowLeft,
-  AlertCircle 
-} from 'lucide-react';
+import { Tabs, Skeleton } from '@mantine/core';
+import { BookOpen, Layers, Image as ImageIcon, Mic, Film, Download, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useProjects } from '../hooks/useProjects';
 import type { StoryboardScene, AudioConfig, VideoConfig, ProjectStatus } from '../types/project.types';
 import ProjectOverviewHeader from '../components/detail/ProjectOverviewHeader';
@@ -54,13 +45,9 @@ export default function ProjectDetailView() {
         <p className="text-sm text-charcoal-muted">
           El proyecto solicitado no existe o ha sido eliminado.
         </p>
-        <Button
-          color="forest"
-          leftSection={<ArrowLeft size={16} />}
-          onClick={() => navigate(routes.app.projects)}
-        >
-          Volver a Mis Proyectos
-        </Button>
+        <button color="forest" onClick={() => navigate(routes.app.projects)} className='flex justify-evenly items-start'>
+          <ArrowLeft size={16} /> Volver a Mis Proyectos
+        </button>
       </div>
     );
   }
@@ -91,16 +78,10 @@ export default function ProjectDetailView() {
       />
 
       {/* Passages Modal Trigger */}
-      <div className="flex justify-end">
-        <Button
-          color="forest"
-          size="sm"
-          leftSection={<BookOpen size={16} />}
-          onClick={() => setPassagesModalOpened(true)}
-          className="bg-forest hover:bg-forest-dark"
-        >
-          Gestionar pasajes bíblicos
-        </Button>
+      <div className="flex justify-end text-sm">
+        <button color="forest" onClick={() => setPassagesModalOpened(true)} className="bg-forest hover:bg-forest-dark text-white rounded-lg w-60 h-9 cursor-pointer flex items-center justify-evenly">
+          <BookOpen size={16} /> Gestionar pasajes bíblicos
+        </button>
       </div>
 
       {/* Production Stages Tabs */}

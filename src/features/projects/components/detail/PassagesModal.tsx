@@ -3,11 +3,14 @@ import { useForm, Controller } from 'react-hook-form';
 import { Modal, Button, TextInput, Select, Badge, ActionIcon, Group } from '@mantine/core';
 import { BookOpen, Plus, Trash2, Sparkles } from 'lucide-react';
 import type { Project } from '../../types/project.types';
-import { BIBLE_VERSIONS, BIBLE_BOOKS, SAMPLE_TEXTS_BY_BOOK } from '../../data/mock-bible';
+import { BIBLE_BOOKS, SAMPLE_TEXTS_BY_BOOK } from '../../data/mock-bible';
 import type { TPassageRangeInput } from '../../schemas/project.schema';
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/common/constants/query-keys';
-import { getApiBibleVersions } from '../../services/project.service';
+import { getApiBibleBooks, getApiBibleVersions } from '../../services/project.service';
+import { BibleVersionDescription } from '../../types/bible-api.types';
+import { Navigate } from 'react-router-dom';
+import { routes } from '@/common/constants/routes';
 
 interface PassagesModalProps {
   opened: boolean;
@@ -32,12 +35,20 @@ export default function PassagesModal({ opened, onClose, project, onSave }: Pass
   const { data, isError, error } = useQuery({
     queryKey: queryKeys.bible.version,
     queryFn: getApiBibleVersions,
+    refetchOnWindowFocus: false,
     retry: 1
   });
-  if (isError) {
-    console.error(error)
-  }
-  console.log(data)
+
+  const [defaultBibleVersion, setDefaultBibleVersion] = useState<string>('rva')
+
+  const { data: dataBooks, isError: isErrorBooks, error: errorBooks} = useQuery({
+    queryKey: queryKeys.bible.books(defaultBibleVersion),
+    queryFn: () => getApiBibleBooks(defaultBibleVersion),
+    refetchOnWindowFocus: false,
+    enabled: !!data,
+    retry: 1
+  });
+  
 
   const selectedPassages = watch('passages');
 
@@ -46,6 +57,7 @@ export default function PassagesModal({ opened, onClose, project, onSave }: Pass
   const [builderChapter, setBuilderChapter] = useState<number>(15);
   const [builderVerseStart, setBuilderVerseStart] = useState<number>(25);
   const [builderVerseEnd, setBuilderVerseEnd] = useState<number>(32);
+  
 
   useEffect(() => {
     if (opened) {
@@ -56,6 +68,15 @@ export default function PassagesModal({ opened, onClose, project, onSave }: Pass
     }
   }, [opened, project, reset]);
 
+  if (isError) {
+    console.error(error)
+    return <Navigate to={routes.app.projectDetail} />
+  }
+  if(isErrorBooks){
+    console.error(errorBooks)
+    return <Navigate to={routes.app.projectDetail} />
+  }
+  console.log(dataBooks)
   // Find book details
   const activeBookObj = BIBLE_BOOKS.find(b => b.name === builderBook) || BIBLE_BOOKS[0];
   const maxChapters = activeBookObj.chaptersCount;
@@ -94,12 +115,10 @@ export default function PassagesModal({ opened, onClose, project, onSave }: Pass
     onClose();
   };
 
+
+
   return (
-    <Modal
-      opened={opened}
-      onClose={onClose}
-      size="xl"
-      centered
+    <Modal  opened={opened} onClose={onClose} size="xl" centered
       title={
         <div className="flex items-center gap-2 font-editorial font-semibold text-forest">
           <BookOpen size={20} />
@@ -127,22 +146,22 @@ export default function PassagesModal({ opened, onClose, project, onSave }: Pass
             control={control}
             render={({ field }) => (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {BIBLE_VERSIONS.map((ver) => (
+                {data?.map((ver) => (
                   <div
                     key={ver.id}
-                    onClick={() => field.onChange(ver.code)}
-                    className={`p-3.5 rounded-xl border cursor-pointer transition-all ${field.value === ver.code
+                    onClick={() => {field.onChange(ver.id); setDefaultBibleVersion(ver.id)}}
+                    className={`p-3.5 rounded-xl border cursor-pointer transition-all ${defaultBibleVersion === ver.id
                         ? 'border-forest bg-forest-subtle ring-1 ring-forest'
                         : 'border-border-warm hover:border-gold bg-white'
                       }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-sm text-forest">{ver.code}</span>
+                      <span className="font-bold text-sm text-forest uppercase">{ver.id}</span>
                       <Badge size="xs" variant="light" color="forest">Español</Badge>
                     </div>
                     <p className="font-semibold text-xs text-charcoal mt-1">{ver.name}</p>
                     <p className="text-[11px] text-charcoal-muted mt-1 line-clamp-2 leading-tight">
-                      {ver.description}
+                      {BibleVersionDescription[ver.id]}
                     </p>
                   </div>
                 ))}

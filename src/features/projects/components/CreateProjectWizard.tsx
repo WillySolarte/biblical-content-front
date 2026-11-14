@@ -57,7 +57,6 @@ export default function CreateProjectWizard() {
             </div>
 
             <div className="space-y-4">
-              {/* Mantine leerá automáticamente la string de error y detendrá el submit */}
               <TextInput
                 label="Nombre del proyecto"
                 description="Un título evocador para tu video o producción audiovisual"

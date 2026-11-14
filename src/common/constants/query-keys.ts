@@ -12,7 +12,8 @@ export const queryKeys = {
     },
     bible: {
         all: ['bible'] as const,
-        version: ['bible', 'versions'] as const
+        version: ['bible', 'versions'] as const,
+        books: (version: string) =>  ['bible', 'versions', version] as const
     }
     
 };
